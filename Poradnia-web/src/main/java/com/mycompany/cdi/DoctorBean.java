@@ -45,7 +45,7 @@ public class DoctorBean implements Serializable
         return doctorDTOFacade.findAll();
     }
 
-    public DoctorDTO getProduct(Integer id)
+    public DoctorDTO getDoctor(Integer id)
     {
         return doctorDTOFacade.find(id);
     }

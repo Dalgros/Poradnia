@@ -42,15 +42,39 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Start</span>
+                            <span class="title">Terminy</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
-                        <h1>Dzień dobry doktorze</h1>   
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <h1>Lista terminów</h1>
+                            </div>
+                            <div class="pull-right">
+                                <a href="addTerm.xhtml"><button class="btn btn-red">+ Dodaj termin</button></a>
+                            </div>
+                            <h:dataTable id="prod" value="#{patient.patients}" var="i" styleClass="table">
+                                <h:column>
+                                    <f:facet name="header">id</f:facet>  
+                                    <h:outputText value="#{i.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Imię</f:facet>  
+                                    <h:outputText value="#{i.firstName}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nazwisko</f:facet>  
+                                    <h:outputText value="#{i.lastName}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Numer telefonu</f:facet>  
+                                    <h:outputText value="#{i.phoneNumber}" />
+                                </h:column>
+                            </h:dataTable>
+                        </div>
                     </div>
                 </div>
             </div>

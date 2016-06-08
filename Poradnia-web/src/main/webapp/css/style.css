@@ -156,6 +156,7 @@ h1, h2, h3 {
 .headline-row .title:before {
     content: "Jesteś w zakładce: ";
     color: #e2e2e2;
+    margin-left: -25px;
 }
 
 h1 {
@@ -201,10 +202,16 @@ h1 {
     text-align: center;
 }
 
-.login-panel input {
+.login-panel input, .input-lg {
     margin: 0 auto;
     border: 1px solid #e2e2e2;
     width: 90%
+}
+
+.input-lg {
+    margin: 0 auto;
+    border: 1px solid #e2e2e2;
+    width: 100%
 }
 
 .login-panel input:focus {
@@ -227,6 +234,24 @@ h1 {
     color: #fff;
     font-weight: 600;
     text-transform: uppercase;
+}
+
+.btn-red {
+    background: #DB162F;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.btn-red:hover {
+    background: #426180;
+    color: #fff;
+}
+
+.line {
+    border-top: 2px solid #e2e2e2;
+    padding-top: 25px;
+    margin-top: 25px;
 }
 
 @media(min-width:768px) {
