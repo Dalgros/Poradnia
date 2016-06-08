@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <title>Panel lekarza - strona główna</title>
+    </h:head>
+    <h:body>
+
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            <h1>Medical.</h1>
+                            <h2>Przychodnia lekarska</h2>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Pacjenci</a>
+                    </li>
+                    <li>
+                        <a href="#">Wizyty</a>
+                    </li>
+                    <li>
+                        <a href="#">Terminy</a>
+                    </li>
+                </ul>
+                <footer>
+                    <p>Marcin Kaczorowski, <br />Karol Nowicki</p>
+                </footer>
+            </div>
+
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row headline-row">
+                        <div class="col-md-6">
+                            <span class="title">Pacjenci</span>
+                        </div>
+                        <div class="col-md-6 text-right" style="padding-top: 10px;">
+                            Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 50px 0;">
+                        <div class="col-md-8">
+                            <h1>Lista pacjentów</h1>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nagłówek 1</th>
+                                        <th>Nagłówek 2</th>
+                                        <th>Nagłówek 3</th>
+                                        <th>Nagłówek 4</th>
+                                        <th>Nagłówek 5</th>
+                                        <th>Nagłówek 6</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                        <td>sdgfdshgfs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum. Integer aliquam purus. </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </h:body>
+</html>
+
