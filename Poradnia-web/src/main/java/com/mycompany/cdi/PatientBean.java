@@ -25,12 +25,12 @@ public class PatientBean implements Serializable
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
     
-     public List<PatientDTO> getDoctors()
+     public List<PatientDTO> getPatients()
     {
         return patientDTOFacade.findAll();
     }
 
-    public PatientDTO getProduct(Integer id)
+    public PatientDTO getPatient(Integer id)
     {
         return patientDTOFacade.find(id);
     }
