@@ -7,7 +7,6 @@ package com.mycompany.form;
 
 import java.util.Date;
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**

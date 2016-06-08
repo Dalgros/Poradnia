@@ -31,8 +31,12 @@ public class LoginForm implements Serializable {
 
     @EJB
     private AdminDTOFacadeLocal adminDTOFacade;
+    @EJB
     private DoctorDTOFacadeLocal doctorDTOFacade;
+    @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
+
+    private Object user;
 
     private String username;
     private String password;
@@ -62,8 +66,16 @@ public class LoginForm implements Serializable {
         this.message = message;
     }
 
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
+    }
+
     public String validateUsernamePassword() {
-        Object user = (AdminDTO) adminDTOFacade.checkUser(username, password);
+        user = (AdminDTO) adminDTOFacade.checkUser(username, password);
 
         if (user == null) {
             user = (DoctorDTO) doctorDTOFacade.checkUser(username, password);
@@ -74,8 +86,8 @@ public class LoginForm implements Serializable {
         }
 
         if (user != null) {
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            session.setAttribute("username", user);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getExternalContext().getSessionMap().put("username", user);
             if (user instanceof AdminDTO) {
                 return "/admin/index.xhtml?faces-redirect=true";
             } else if (user instanceof DoctorDTO) {
@@ -89,16 +101,15 @@ public class LoginForm implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Nieprawidłowe dane",
                             "Proszę podaj poprawną nazwę użytkownika oraz hasło"));
-            return "/index.xhtml";
+            return "/login.xhtml";
         }
-        
-        return "/index.xhtml";
+
+        return "/login.xhtml";
     }
 
     public String logout() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        session.invalidate();
-        return "login";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
 
 }

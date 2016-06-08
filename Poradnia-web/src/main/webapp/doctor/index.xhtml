@@ -7,7 +7,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Panel lekarza - strona główna</title>
+        <title>Start - panel lekarza</title>
     </h:head>
     <h:body>
 
@@ -45,7 +45,9 @@
                             <span class="title">Start</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
-                            Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
