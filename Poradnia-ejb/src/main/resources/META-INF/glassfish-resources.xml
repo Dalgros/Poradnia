@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <mail-resource debug="true" 
+                 enabled="true" 
+                 from="user1357@o2.pl" 
+                 host="poczta.o2.pl" 
+                 jndi-name="mail/mySession" 
+                 object-type="user" 
+                 store-protocol="imap" 
+                 store-protocol-class="com.sun.mail.imap.IMAPStore" 
+                 transport-protocol="smtp" 
+                 transport-protocol-class="com.sun.mail.smtp.SMTPTransport" 
+                 user="user1357">
+    <description/>
+    <property name="mail.smtp.host" value="poczta.o2.pl"/>
+    <property name="mail.smtp.port" value="465"/>
+    <property name="mail.smtp.auth" value="true"/>
+    <property name="mail.smtp.ssi.enable" value="true"/>
+  </mail-resource>
+</resources>
