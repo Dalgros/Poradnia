@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
@@ -47,6 +48,24 @@
                     <div class="row" style="padding: 50px 0;">
                         <div class="col-md-8">
                             <h1>Lista pacjentów</h1>
+                            <h:dataTable id="prod" value="#{patient.doctors}" var="i" styleClass="table">
+                                <h:column>
+                                    <f:facet name="header">id</f:facet>  
+                                    <h:outputText value="#{i.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Imię</f:facet>  
+                                    <h:outputText value="#{i.firstName}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nazwisko</f:facet>  
+                                    <h:outputText value="#{i.lastName}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Numer telefonu</f:facet>  
+                                    <h:outputText value="#{i.phoneNumber}" />
+                                </h:column>
+                            </h:dataTable>
                             <table class="table">
                                 <thead>
                                     <tr>
