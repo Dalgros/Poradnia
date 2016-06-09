@@ -26,7 +26,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "find visits by patient",
             query = "select v from VisitDTO v where v.patient = ?1"),
     @NamedQuery(name = "find visits by doctor",
-            query = "select v from VisitDTO v")
+            query = "select v from VisitDTO v where ?1 = v.doctor")
 })
 public class VisitDTO implements Serializable
 {

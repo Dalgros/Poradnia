@@ -5,6 +5,7 @@
  */
 package com.mycompany.cdi;
 
+import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
 import com.mycompany.interfaces.TermDTOFacadeLocal;
 import com.mycompany.interfaces.VisitDTOFacadeLocal;
@@ -35,6 +36,9 @@ public class VisitBean implements Serializable {
 
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
+
+    @EJB
+    private DoctorDTOFacadeLocal doctorDTOFacade;
 
     private String selectedTerm;
     private String selectedDoctor;
@@ -101,10 +105,20 @@ public class VisitBean implements Serializable {
         VisitDTO visit = new VisitDTO();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        visit.setDoctor((DoctorDTO) context.getExternalContext().getSessionMap().get("username"));
+        if (selectedDoctor == null) {
+            visit.setDoctor((DoctorDTO) context.getExternalContext().getSessionMap().get("username"));
+        } else {
+            visit.setDoctor((DoctorDTO) doctorDTOFacade.find(Integer.parseInt(selectedDoctor.substring(0, selectedDoctor.indexOf(" | ")))));
+        }
 
-        visit.setPatient((PatientDTO) patientDTOFacade.find(id));
+        if (selectedPatient == null) {
+            visit.setPatient((PatientDTO) patientDTOFacade.find(id));
+        } else {
+            visit.setPatient((PatientDTO) patientDTOFacade.find(Integer.parseInt(selectedPatient.substring(0, selectedPatient.indexOf(" | ")))));
+        }
+
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
+
         visitDTOFacade.create(visit);
 
         return "visits.xhtml?faces-redirect=true";

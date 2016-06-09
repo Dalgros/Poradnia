@@ -66,7 +66,7 @@ public class PatientDTOFacade extends AbstractFacade<PatientDTO> implements Pati
         try
         {
             Query query = em.createNamedQuery("find patients by doctor");
-          //  query.setParameter(1, doctor);
+            query.setParameter(1, doctor);
             
             result = query.getResultList();
             return result;

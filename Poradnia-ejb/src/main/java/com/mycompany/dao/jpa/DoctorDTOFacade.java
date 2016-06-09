@@ -65,7 +65,7 @@ public class DoctorDTOFacade extends AbstractFacade<DoctorDTO> implements Doctor
         try
         {
             Query query = em.createNamedQuery("find doctors by patient");
-         //   query.setParameter(1, patient);
+            query.setParameter(1, patient);
             
             result = query.getResultList();
             return result;
