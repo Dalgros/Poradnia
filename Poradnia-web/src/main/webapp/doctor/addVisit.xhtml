@@ -3,15 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Start - panel lekarza</title>
+        <title>Nowa wizyta - panel lekarza</title>
     </h:head>
     <h:body>
-        
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -44,23 +44,33 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Start</span>
+                            <span class="title">Dodaj wizytę</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
                                 Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>
+                            </h:form>                        
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
-                        <h1>Dzień dobry doktorze</h1>   
-                        <ul class="list-group">
-                            <li class="list-group-item">Liczba Pańskich pacjentów: <span class="badge"><h:outputText value="#{fn:length(patient.patients)}" /></span></li>
-                            <li class="list-group-item">Liczba zaplanowanych wizyt <span class="badge"><h:outputText value="#{fn:length(visit.visits)}" /></span></li>
-                            <li class="list-group-item">Liczba ustalonych terminów: <span class="badge"><h:outputText value="#{fn:length(term.terms)}" /></span></li>
-                        </ul>
-                        <br />
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <h1>Dodaj wizytę pacjentowi #{patient.getPatient(param.id).firstName} #{patient.getPatient(param.id).lastName}</h1>
+                        <h:form>
+                            <div class="container-fluid">
+                                <div class="row" style="padding-bottom: 25px;">
+                                    <div class="col-md-12">
+                                        <label>Dostępne terminy wizyt</label>
+                                        <h:selectOneMenu value="#{visit.selectedTerm}" class="input-lg">
+                                                <f:selectItems value="#{term.getStringTerms()}" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="row line">
+                                    <div class="col-md-12">
+                                        <h:commandButton action="#{visit.submit(param.id)}" value="Dodaj termin" class="btn btn-red" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
                     </div>
                 </div>
             </div>

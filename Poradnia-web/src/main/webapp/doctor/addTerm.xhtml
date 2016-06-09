@@ -8,7 +8,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Panel lekarza - strona główna</title>
+        <title>Nowy termin - panel lekarza</title>
     </h:head>
     <h:body>
 
@@ -46,7 +46,9 @@
                             <span class="title">Dodaj termin</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
-                            Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>                        
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
@@ -56,16 +58,18 @@
                                 <div class="row" style="padding-bottom: 25px;">
                                     <div class="col-md-6">
                                         <label>Data (format - DD.MM.RRRR)</label>
-                                        <h:inputText id="date" a:placeholder="Data (format DD.MM.RRR)" class="input-lg" />
+                                        <h:inputText id="date" value="#{term.date}" a:placeholder="Data (format DD.MM.RRR)" class="input-lg" required="true" />
+                                        <h:message for="date" />
                                     </div>
                                     <div class="col-md-6">
                                         <label>Godzina (format HH:MM)</label>
-                                        <h:inputText id="lastName" a:placeholder="Godzina (format HH:MM)" class="input-lg" />
+                                        <h:inputText id="time" value="#{term.time}" a:placeholder="Godzina (format HH:MM)" class="input-lg" required="true" />
+                                        <h:message for="time" />
                                     </div>
                                 </div>
                                 <div class="row line">
                                     <div class="col-md-12">
-                                        <h:commandButton value="Dodaj termin" class="btn btn-red" />
+                                        <h:commandButton action="#{term.submit}" value="Dodaj termin" class="btn btn-red" />
                                     </div>
                                 </div>
                             </div>

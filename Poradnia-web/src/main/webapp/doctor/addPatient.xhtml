@@ -8,7 +8,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Panel lekarza - strona główna</title>
+        <title>Nowy pacjent - panel lekarza</title>
     </h:head>
     <h:body>
 
@@ -46,7 +46,9 @@
                             <span class="title">Dodaj pacjenta</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
-                            Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>                        
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
@@ -56,44 +58,44 @@
                                 <div class="row" style="padding-bottom: 25px;">
                                     <div class="col-md-4">
                                         <label>Imię</label>
-                                        <h:inputText id="firstName" a:placeholder="Imię" class="input-lg" />
+                                        <h:inputText id="firstName" value="#{patient.firstName}" a:placeholder="Imię" class="input-lg" required="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Nazwisko</label>
-                                        <h:inputText id="lastName" a:placeholder="Nazwisko" class="input-lg" />
+                                        <h:inputText id="lastName" value="#{patient.lastName}" a:placeholder="Nazwisko" class="input-lg" required="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Numer telefonu</label>
-                                        <h:inputText id="phoneNumber" a:placeholder="Numer telefonu" class="input-lg" />
+                                        <h:inputText id="phoneNumber" value="#{patient.phoneNumber}" a:placeholder="Numer telefonu" class="input-lg" required="true" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom: 25px;">
                                     <div class="col-md-4">
                                         <label>Adres</label>
-                                        <h:inputText id="address" a:placeholder="Adres" class="input-lg" />
+                                        <h:inputText id="address" value="#{patient.address}" a:placeholder="Adres" class="input-lg" required="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Email</label>
-                                        <h:inputText id="email" a:placeholder="Email" class="input-lg" />
+                                        <h:inputText id="email" value="#{patient.email}" a:placeholder="Email" class="input-lg" required="true" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom: 25px;">
                                     <div class="col-md-4">
                                         <label>Nazwa użytkownika</label>
-                                        <h:inputText id="username" a:placeholder="Nazwa użytkownika" class="input-lg" />
+                                        <h:inputText id="username" value="#{patient.username}" a:placeholder="Nazwa użytkownika" class="input-lg" required="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Hasło użytkownika</label>
-                                        <h:inputSecret id="password" a:placeholder="Hasło użytkownika" class="input-lg" />
+                                        <h:inputSecret id="password" value="#{patient.password}" a:placeholder="Hasło użytkownika" class="input-lg" required="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Potwierdź hasło użytkownika</label>
-                                        <h:inputSecret id="password2" a:placeholder="Potwierdź hasło użytkownika" class="input-lg" />
+                                        <h:inputSecret id="password2" value="#{patient.password2}" a:placeholder="Potwierdź hasło użytkownika" class="input-lg" required="true" />
                                     </div>
                                 </div>
                                 <div class="row line">
                                     <div class="col-md-12">
-                                        <h:commandButton value="Zarejestruj pacjenta" class="btn btn-red" />
+                                        <h:commandButton action="#{patient.submit}" value="Zarejestruj pacjenta" class="btn btn-red" />
                                     </div>
                                 </div>
                             </div>

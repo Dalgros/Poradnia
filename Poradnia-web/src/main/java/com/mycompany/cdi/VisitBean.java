@@ -5,12 +5,18 @@
  */
 package com.mycompany.cdi;
 
+import com.mycompany.interfaces.PatientDTOFacadeLocal;
+import com.mycompany.interfaces.TermDTOFacadeLocal;
 import com.mycompany.interfaces.VisitDTOFacadeLocal;
+import com.mycompany.model.DoctorDTO;
+import com.mycompany.model.PatientDTO;
 import com.mycompany.model.VisitDTO;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -19,27 +25,62 @@ import javax.inject.Named;
  */
 @Named("visit")
 @RequestScoped
-public class VisitBean implements Serializable
-{
+public class VisitBean implements Serializable {
+    @EJB
+    private TermDTOFacadeLocal termDTOFacade;
 
     @EJB
     private VisitDTOFacadeLocal visitDTOFacade;
     
-    public List<VisitDTO> getVisits()
-    {
+    @EJB
+    private PatientDTOFacadeLocal patientDTOFacade;
+    
+    private String selectedTerm;
+
+    public List<VisitDTO> getVisits() {
         return visitDTOFacade.findAll();
     }
 
-    public VisitDTO getVisit(Integer id)
-    {
+    public VisitDTO getVisit(Integer id) {
         return visitDTOFacade.find(id);
     }
 
-    public String delete(Integer id)
-    {
+    public String delete(Integer id) {
         visitDTOFacade.remove(visitDTOFacade.find(id));
-        
-        return "success";
+
+        return "";
+    }
+
+    public List<VisitDTO> getVisits(DoctorDTO doctor) {
+        List<VisitDTO> list = getVisits();
+        List<VisitDTO> result = new LinkedList<VisitDTO>();
+        for (VisitDTO visit : list) {
+            if (visit.getDoctor().equals(doctor)) {
+                result.add(visit);
+            }
+        }
+        return result;
+    }
+
+    public String getSelectedTerm() {
+        return selectedTerm;
+    }
+
+    public void setSelectedTerm(String selectedTerm) {
+        this.selectedTerm = selectedTerm;
     }
     
+    public String submit(Integer id) {
+        VisitDTO visit = new VisitDTO();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        visit.setDoctor((DoctorDTO) context.getExternalContext().getSessionMap().get("username"));
+        
+        visit.setPatient((PatientDTO)patientDTOFacade.find(id));
+        visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
+        visitDTOFacade.create(visit);
+        
+        return "visits.xhtml?faces-redirect=true";
+    }
+
 }

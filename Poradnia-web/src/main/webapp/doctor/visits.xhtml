@@ -7,7 +7,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Panel lekarza - strona główna</title>
+        <title>Wizyty - panel lekarza</title>
     </h:head>
     <h:body>
 
@@ -45,32 +45,35 @@
                             <span class="title">Wizyty</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
-                            Jesteś zalogowany/a jako Jessica, <a href="#">wyloguj się</a>
-                        </div>
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>                        </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
                         <div class="col-md-12">
                             <div class="pull-left">
                                 <h1>Lista wizyt</h1>
                             </div>
-                            <h:dataTable id="prod" value="#{patient.patients}" var="i" styleClass="table">
-                                <h:column>
-                                    <f:facet name="header">id</f:facet>  
-                                    <h:outputText value="#{i.id}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Imię</f:facet>  
-                                    <h:outputText value="#{i.firstName}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Nazwisko</f:facet>  
-                                    <h:outputText value="#{i.lastName}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Numer telefonu</f:facet>  
-                                    <h:outputText value="#{i.phoneNumber}" />
-                                </h:column>
-                            </h:dataTable>
+                            <h:form>
+                                <h:dataTable id="prod" value="#{visit.getVisits(login.user)}" var="item" styleClass="table">
+                                    <h:column>
+                                        <f:facet name="header">Pacjent</f:facet>  
+                                        <h:outputText value="#{item.patient}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Nazwisko</f:facet>  
+                                        <h:outputText value="#{i.lastName}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Numer telefonu</f:facet>  
+                                        <h:outputText value="#{i.phoneNumber}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Operacje</f:facet>
+                                        <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
                         </div>
                     </div>
                 </div>

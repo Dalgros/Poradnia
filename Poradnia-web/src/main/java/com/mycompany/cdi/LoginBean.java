@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.form;
+package com.mycompany.cdi;
 
 import com.mycompany.interfaces.AdminDTOFacadeLocal;
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 @Named("login")
 @ManagedBean
 @SessionScoped
-public class LoginForm implements Serializable {
+public class LoginBean implements Serializable {
 
     @EJB
     private AdminDTOFacadeLocal adminDTOFacade;

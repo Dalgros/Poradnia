@@ -37,26 +37,26 @@ public class PatientDTO implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Size(max = 20)
+    @Size(max = 30)
     @Column(name = "FIRSTNAME")
     private String firstName;
     
-    @Size(max = 20)
+    @Size(max = 40)
     @Column(name = "LASTNAME")
     private String lastName;
     
-    @Size(max =40)
+    @Size(max = 75)
     @Column(name = "ADDRESS")
     private String address;
     
     @Column(name = "PHONENUMBER")
     private Integer phoneNumber;
     
-    @Size(max = 30)
+    @Size(max = 50)
     @Column(name = "EMAIL")
     private String email;
     
-    @Size(max = 20)
+    @Size(max = 50)
     @Column(name = "SPECIALIZATION")
     private String specialization;
     

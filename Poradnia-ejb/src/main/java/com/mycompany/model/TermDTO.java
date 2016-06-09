@@ -31,7 +31,6 @@ public class TermDTO implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @Size(max = 20)
     @Column(name = "DATE")
     private Date date;
     

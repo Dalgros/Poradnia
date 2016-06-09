@@ -202,7 +202,7 @@ h1 {
     text-align: center;
 }
 
-.login-panel input, .input-lg {
+.login-panel input, .input-lg, .input-sm {
     margin: 0 auto;
     border: 1px solid #e2e2e2;
     width: 90%
@@ -243,7 +243,7 @@ h1 {
     padding: 10px 20px;
 }
 
-.btn-red:hover {
+.btn-red:hover, .btn-op:hover{
     background: #426180;
     color: #fff;
 }
@@ -252,6 +252,16 @@ h1 {
     border-top: 2px solid #e2e2e2;
     padding-top: 25px;
     margin-top: 25px;
+}
+
+.btn-op {
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-left: 5px;
+}
+
+.table th:last-child {
+    text-align: right;
 }
 
 @media(min-width:768px) {
