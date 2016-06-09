@@ -75,10 +75,6 @@ public class DoctorDTO implements Serializable
     private String password;
 
     @ManyToMany
-    @JoinTable(
-      name="PATIENT",
-      joinColumns=@JoinColumn(name="ID_DOCTOR", referencedColumnName="ID"),
-      inverseJoinColumns=@JoinColumn(name="ID_PATIENT", referencedColumnName="ID"))
     private List<PatientDTO> patients = new LinkedList<>();
 
     @OneToMany(mappedBy = "doctor", cascade={CascadeType.ALL})
