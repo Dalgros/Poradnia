@@ -40,9 +40,8 @@ public class PatientBean implements Serializable {
     public List<PatientDTO> getPatients() {
         return patientDTOFacade.findAll();
     }
-    
-    public List<PatientDTO> getPatientsByDoctors(DoctorDTO doctor)
-    {
+
+    public List<PatientDTO> getPatientsByDoctors(DoctorDTO doctor) {
         return patientDTOFacade.findPatients(doctor);
     }
 
@@ -59,20 +58,28 @@ public class PatientBean implements Serializable {
     public PatientDTOFacadeLocal getPatientDTOFacade() {
         return patientDTOFacade;
     }
-    
 
     public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
         this.patientDTOFacade = patientDTOFacade;
     }
-    
+
     public List<PatientDTO> getPatients(DoctorDTO doctor) {
         List<PatientDTO> list = getPatients();
         List<PatientDTO> result = new LinkedList<PatientDTO>();
-        for(PatientDTO patient : list) {
-            for(DoctorDTO doc : patient.getDoctors()) {
-                if(doc.equals(doctor))
+        for (PatientDTO patient : list) {
+            for (DoctorDTO doc : patient.getDoctors()) {
+                if (doc.equals(doctor)) {
                     result.add(patient);
+                }
             }
+        }
+        return result;
+    }
+
+    public List<String> getStringPatients() {
+        List<String> result = new LinkedList<String>();
+        for (PatientDTO patient : getPatients()) {
+            result.add(patient.getId() + " | " + patient.getFirstName() + " " + patient.getLastName());
         }
         return result;
     }
@@ -155,12 +162,7 @@ public class PatientBean implements Serializable {
         patient.setPhoneNumber(Integer.parseInt(phoneNumber));
         patient.setSpecialization(email);
         patient.setUserName(username);
-        
-        List<DoctorDTO> doctors = new LinkedList<DoctorDTO>();
-        FacesContext context = FacesContext.getCurrentInstance();
-        doctors.add((DoctorDTO) context.getExternalContext().getSessionMap().get("username"));
-        patient.setDoctors(doctors);
-        
+
         patientDTOFacade.create(patient);
 
         return "patients.xhtml?faces-redirect=true";

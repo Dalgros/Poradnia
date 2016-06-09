@@ -26,16 +26,19 @@ import javax.inject.Named;
 @Named("visit")
 @RequestScoped
 public class VisitBean implements Serializable {
+
     @EJB
     private TermDTOFacadeLocal termDTOFacade;
 
     @EJB
     private VisitDTOFacadeLocal visitDTOFacade;
-    
+
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
-    
+
     private String selectedTerm;
+    private String selectedDoctor;
+    private String selectedPatient;
 
     public List<VisitDTO> getVisits() {
         return visitDTOFacade.findAll();
@@ -51,16 +54,14 @@ public class VisitBean implements Serializable {
         return "";
     }
 
-    public List<VisitDTO> getVisitsByDoctors(DoctorDTO doctor)
-    {
+    public List<VisitDTO> getVisitsByDoctors(DoctorDTO doctor) {
         return visitDTOFacade.findByDoctor(doctor);
     }
-    
-    public List<VisitDTO> getVisitsByPatients(PatientDTO patient)
-    {
+
+    public List<VisitDTO> getVisitsByPatients(PatientDTO patient) {
         return visitDTOFacade.findByPatient(patient);
     }
-    
+
     public List<VisitDTO> getVisits(DoctorDTO doctor) {
         List<VisitDTO> list = getVisits();
         List<VisitDTO> result = new LinkedList<VisitDTO>();
@@ -79,17 +80,33 @@ public class VisitBean implements Serializable {
     public void setSelectedTerm(String selectedTerm) {
         this.selectedTerm = selectedTerm;
     }
-    
+
+    public String getSelectedDoctor() {
+        return selectedDoctor;
+    }
+
+    public void setSelectedDoctor(String selectedDoctor) {
+        this.selectedDoctor = selectedDoctor;
+    }
+
+    public String getSelectedPatient() {
+        return selectedPatient;
+    }
+
+    public void setSelectedPatient(String selectedPatient) {
+        this.selectedPatient = selectedPatient;
+    }
+
     public String submit(Integer id) {
         VisitDTO visit = new VisitDTO();
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         visit.setDoctor((DoctorDTO) context.getExternalContext().getSessionMap().get("username"));
-        
-        visit.setPatient((PatientDTO)patientDTOFacade.find(id));
+
+        visit.setPatient((PatientDTO) patientDTOFacade.find(id));
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
         visitDTOFacade.create(visit);
-        
+
         return "visits.xhtml?faces-redirect=true";
     }
 

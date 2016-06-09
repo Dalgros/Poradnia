@@ -2,14 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <h:head>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Wizyty - panel lekarza</title>
+        <title>Pacjenci - panel administratora</title>
     </h:head>
     <h:body>
+
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -22,6 +24,9 @@
                     </li>
                     <li>
                         <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
                     </li>
                     <li>
                         <a href="patients.xhtml">Pacjenci</a>
@@ -45,55 +50,63 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Wizyty</span>
+                            <span class="title">Pacjenci</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
-                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>                        
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
+
                         <div class="col-md-12">
                             <div class="pull-left">
-                                <h1>Lista wizyt</h1>
+                                <h1>Lista pacjentów w całej przychodni</h1>
                             </div>
-                            <h:form id="form">
-
-                                <h:dataTable id="prod" value="#{visit.visits}" var="item" styleClass="table">
+                            <div class="pull-right">
+                                <a href="addPatient.xhtml"><button class="btn btn-red">+ Dodaj pacjenta</button></a>
+                            </div>
+                            <h:form>
+                                <h:dataTable id="prod" value="#{patient.patients}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Pacjent</f:facet>  
-                                        <h:outputText value="#{item.patient.firstName} #{item.patient.lastName}" />
+                                        <f:facet name="header">Imię</f:facet>  
+                                        <h:outputText value="#{item.firstName}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Lekarz</f:facet>  
-                                        <h:outputText value="#{item.doctor.firstName} #{item.doctor.lastName}" />
+                                        <f:facet name="header">Nazwisko</f:facet>  
+                                        <h:outputText value="#{item.lastName}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Adres</f:facet>  
-                                        <h:outputText value="#{item.place.city} #{item.place.street} #{item.place.buildingNumber}" />
+                                        <h:outputText value="#{item.address}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Numer pokoju</f:facet>  
-                                        <h:outputText value="#{item.place.roomNumber}" />
+                                        <f:facet name="header">Specjalizacja</f:facet>  
+                                        <h:outputText value="#{item.specialization}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Godzina</f:facet>  
-                                        <h:outputText value="#{item.term.time}" />
+                                        <f:facet name="header">Numer telefonu</f:facet>  
+                                        <h:outputText value="#{item.phoneNumber}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Data</f:facet>  
-                                        <h:outputText value="#{item.term.date}" />
+                                        <f:facet name="header">Liczba wizyt</f:facet>  
+                                        <h:outputText value="#{fn:length(item.visits)}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Liczba lekarzy</f:facet>  
+                                        <h:outputText value="#{fn:length(item.doctors)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Operacje</f:facet>
-                                        <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                        <h:commandButton action="#{patient.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
                                             <f:ajax render=":form" />
                                         </h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
                         </div>
+
                     </div>
                 </div>
             </div>

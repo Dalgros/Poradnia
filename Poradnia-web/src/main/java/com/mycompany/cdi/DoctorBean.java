@@ -12,10 +12,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlForm;
-import javax.faces.component.html.HtmlInputSecret;
-import javax.faces.component.html.HtmlInputText;
 import javax.inject.Named;
 
 /**
@@ -24,14 +20,22 @@ import javax.inject.Named;
  */
 @Named("doctor")
 @RequestScoped
-public class DoctorBean implements Serializable
-{
+public class DoctorBean implements Serializable {
 
     @EJB
     private DoctorDTOFacadeLocal doctorDTOFacade;
 
-    public String create(String fName, String lName)
-    {
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String address;
+    private String email;
+    private String username;
+    private String password;
+    private String password2;
+    private String specialization;
+
+    public String create(String fName, String lName) {
         DoctorDTO doctor = new DoctorDTO();
         doctor.setFirstName(fName);
         doctor.setLastName(lName);
@@ -41,45 +45,64 @@ public class DoctorBean implements Serializable
         return "success";
     }
 
-    public List<DoctorDTO> getDoctors()
-    {
+    public List<DoctorDTO> getDoctors() {
         return doctorDTOFacade.findAll();
     }
 
-    public DoctorDTO getDoctor(Integer id)
-    {
+    public DoctorDTO getDoctor(Integer id) {
         return doctorDTOFacade.find(id);
     }
 
-    public String delete(Integer id)
-    {
+    public String delete(Integer id) {
         doctorDTOFacade.remove(doctorDTOFacade.find(id));
-        
-        return "success";
+
+        return "";
     }
-    
-    public String edit(Integer id)
-    {
+
+    public String edit(Integer id) {
         doctorDTOFacade.edit(doctorDTOFacade.find(id));
-        
+
         return "success";
     }
-    
-    public List<DoctorDTO> getDoctorsByPatient(PatientDTO patient)
-    {
+
+    public List<DoctorDTO> getDoctorsByPatient(PatientDTO patient) {
         return doctorDTOFacade.findDoctors(patient);
     }
 
-    public DoctorDTOFacadeLocal getDoctorDTOFacade()
-    {
+    public DoctorDTOFacadeLocal getDoctorDTOFacade() {
         return doctorDTOFacade;
     }
 
-    public void setdoctorDTOFacade(DoctorDTOFacadeLocal doctorDTOFacade)
-    {
+    public void setdoctorDTOFacade(DoctorDTOFacadeLocal doctorDTOFacade) {
         this.doctorDTOFacade = doctorDTOFacade;
     }
-    
-    
+
+    public List<String> getStringDoctors() {
+        List<String> result = new LinkedList<String>();
+        for (DoctorDTO doctor : getDoctors()) {
+            result.add(doctor.getId() + " | " + doctor.getFirstName() + " " + doctor.getLastName() + " (" + doctor.getSpecialization() + ")");
+        }
+        return result;
+    }
+
+    public String submit() {
+        if (!password.equals(password2)) {
+            return "addDoctor.xhtml?faces-redirect=true";
+        }
+
+        DoctorDTO doctor = new DoctorDTO();
+        doctor.setAddress(address);
+        doctor.setEmail(email);
+        doctor.setFirstName(firstName);
+        doctor.setLastName(lastName);
+        doctor.setPassword(password);
+        doctor.setPhoneNumber(Integer.parseInt(phoneNumber));
+        doctor.setSpecialization(specialization);
+        doctor.setUserName(username);
+
+        doctorDTOFacade.create(doctor);
+
+        return "doctors.xhtml?faces-redirect=true";
+    }
 
 }

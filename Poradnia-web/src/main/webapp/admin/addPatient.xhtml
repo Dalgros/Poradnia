@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <title>Nowy pacjent - panel administratora</title>
+    </h:head>
+    <h:body>
+
+
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="index.xhtml">
+                            <h1>Medical.</h1>
+                            <h2>Przychodnia lekarska</h2>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
+                    </li>
+                    <li>
+                        <a href="patients.xhtml">Pacjenci</a>
+                    </li>
+                    <li>
+                        <a href="visits.xhtml">Wizyty</a>
+                    </li>
+                    <li>
+                        <a href="terms.xhtml">Terminy</a>
+                    </li>
+                    <li>
+                        <a href="places.xhtml">Miejsca</a>
+                    </li>
+                </ul>
+                <footer>
+                    <p>Marcin Kaczorowski, <br />Karol Nowicki</p>
+                </footer>
+            </div>
+
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row headline-row">
+                        <div class="col-md-6">
+                            <span class="title">Dodaj pacjenta</span>
+                        </div>
+                        <div class="col-md-6 text-right" style="padding-top: 10px;">
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 50px 0;">
+
+                        <div class="col-md-12">
+                            <h1>Zapisz nowego pacjenta</h1>
+                            <h:form>
+                                <div class="container-fluid">
+                                    <div class="row" style="padding-bottom: 25px;">
+                                        <div class="col-md-4">
+                                            <label>Imię</label>
+                                            <h:inputText id="firstName" value="#{patient.firstName}" a:placeholder="Imię" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Nazwisko</label>
+                                            <h:inputText id="lastName" value="#{patient.lastName}" a:placeholder="Nazwisko" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Numer telefonu</label>
+                                            <h:inputText id="phoneNumber" value="#{patient.phoneNumber}" a:placeholder="Numer telefonu" class="input-lg" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom: 25px;">
+                                        <div class="col-md-4">
+                                            <label>Adres</label>
+                                            <h:inputText id="address" value="#{patient.address}" a:placeholder="Adres" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Email</label>
+                                            <h:inputText id="email" value="#{patient.email}" a:placeholder="Email" class="input-lg" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom: 25px;">
+                                        <div class="col-md-4">
+                                            <label>Nazwa użytkownika</label>
+                                            <h:inputText id="username" value="#{patient.username}" a:placeholder="Nazwa użytkownika" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Hasło użytkownika</label>
+                                            <h:inputSecret id="password" value="#{patient.password}" a:placeholder="Hasło użytkownika" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Potwierdź hasło użytkownika</label>
+                                            <h:inputSecret id="password2" value="#{patient.password2}" a:placeholder="Potwierdź hasło użytkownika" class="input-lg" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row line">
+                                        <div class="col-md-12">
+                                            <h:commandButton action="#{patient.submit}" value="Zarejestruj pacjenta" class="btn btn-red" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </h:body>
+</html>
+

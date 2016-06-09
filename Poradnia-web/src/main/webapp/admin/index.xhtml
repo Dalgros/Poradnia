@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <title>Start - panel administratora</title>
+    </h:head>
+    <h:body>
+
+
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="index.xhtml">
+                            <h1>Medical.</h1>
+                            <h2>Przychodnia lekarska</h2>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
+                    </li>
+                    <li>
+                        <a href="patients.xhtml">Pacjenci</a>
+                    </li>
+                    <li>
+                        <a href="visits.xhtml">Wizyty</a>
+                    </li>
+                    <li>
+                        <a href="terms.xhtml">Terminy</a>
+                    </li>
+                    <li>
+                        <a href="places.xhtml">Miejsca</a>
+                    </li>
+                </ul>
+                <footer>
+                    <p>Marcin Kaczorowski, <br />Karol Nowicki</p>
+                </footer>
+            </div>
+
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row headline-row">
+                        <div class="col-md-6">
+                            <span class="title">Lekarze</span>
+                        </div>
+                        <div class="col-md-6 text-right" style="padding-top: 10px;">
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 50px 0;">
+                        <h1>Dzień dobry administratorze</h1>   
+                        <ul class="list-group">
+                            <li class="list-group-item">Liczba lekarzy w przychodni: <span class="badge"><h:outputText value="#{fn:length(doctor.doctors)}" /></span></li>
+                            <li class="list-group-item">Liczba pacjentów: <span class="badge"><h:outputText value="#{fn:length(patient.patients)}" /></span></li>
+                            <li class="list-group-item">Liczba zaplanowanych wizyt <span class="badge"><h:outputText value="#{fn:length(visit.visits)}" /></span></li>
+                            <li class="list-group-item">Liczba ustalonych terminów: <span class="badge"><h:outputText value="#{fn:length(term.terms)}" /></span></li>
+                        </ul>
+                        <br />
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </h:body>
+</html>
+
