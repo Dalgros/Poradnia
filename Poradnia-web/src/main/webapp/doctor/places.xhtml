@@ -8,7 +8,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Pacjenci - panel lekarza</title>
+        <title>Miejsca - panel lekarza</title>
     </h:head>
     <h:body>
 
@@ -46,59 +46,44 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Pacjenci</span>
+                            <span class="title">Miejsca</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
                                 Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>                        </div>
+                            </h:form>                        
+                        </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
                         <div class="col-md-12">
                             <div class="pull-left">
-                                <h1>Lista pacjentów</h1>
-                            </div>
-                            <div class="pull-right">
-                                <a href="addPatient.xhtml"><button class="btn btn-red">+ Dodaj pacjenta</button></a>
+                                <h1>Lista wizyt</h1>
                             </div>
                             <h:form>
-                                <h:dataTable id="prod" value="#{patient.patients}" var="item" styleClass="table">
+                                <h:dataTable id="prod" value="#{place.places}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Imię</f:facet>  
-                                        <h:outputText value="#{item.firstName}" />
+                                        <f:facet name="header">Miasto</f:facet>  
+                                        <h:outputText value="#{item.city}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Nazwisko</f:facet>  
-                                        <h:outputText value="#{item.lastName}" />
+                                        <f:facet name="header">Ulica</f:facet>  
+                                        <h:outputText value="#{item.street}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Adres</f:facet>  
-                                        <h:outputText value="#{item.address}" />
+                                        <f:facet name="header">Numer budynku</f:facet>  
+                                        <h:outputText value="#{item.buildingNumber}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Specjalizacja</f:facet>  
-                                        <h:outputText value="#{item.specialization}" />
+                                        <f:facet name="header">Numer pokoju</f:facet>  
+                                        <h:outputText value="#{item.roomNumber}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Numer telefonu</f:facet>  
-                                        <h:outputText value="#{item.phoneNumber}" />
+                                        <f:facet name="header">Opis</f:facet>  
+                                        <h:outputText value="#{item.description}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Liczba wizyt</f:facet>  
                                         <h:outputText value="#{fn:length(item.visits)}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Liczba lekarzy</f:facet>  
-                                        <h:outputText value="#{fn:length(item.doctors)}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Operacje</f:facet>
-                                        <h:commandButton action="#{patient.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
-                                            <f:ajax render=":form" />
-                                        </h:commandButton>
-                                        <h:button outcome="addVisit.xhtml" value="Wizyta" class="btn btn-op pull-right">
-                                            <f:param name="id" value="#{item.id}" />.
-                                        </h:button>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

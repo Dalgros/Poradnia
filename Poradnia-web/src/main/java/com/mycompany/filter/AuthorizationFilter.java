@@ -9,6 +9,7 @@ import com.mycompany.model.AdminDTO;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
 import java.io.IOException;
+import javax.faces.application.ResourceHandler;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -49,8 +50,9 @@ public class AuthorizationFilter implements Filter {
             boolean adminLogin = ses != null && ses.getAttribute("username") != null && reqURI.indexOf("/admin/") >= 0 && ses.getAttribute("username") instanceof AdminDTO;
             boolean doctorLogin = ses != null && ses.getAttribute("username") != null && reqURI.indexOf("/doctor/") >= 0 && ses.getAttribute("username") instanceof DoctorDTO;
             boolean patientLogin = ses != null && ses.getAttribute("username") != null && reqURI.indexOf("/patient/") >= 0 && ses.getAttribute("username") instanceof PatientDTO;
-            
-            if (reqURI.indexOf("/login.xhtml") >= 0 || adminLogin || doctorLogin || patientLogin) {
+            boolean t = reqt.getRequestURI().startsWith(reqt.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER);
+
+            if (reqURI.indexOf("/login.xhtml") >= 0 || adminLogin || doctorLogin || patientLogin || t) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect(reqt.getContextPath() + "/login.xhtml");

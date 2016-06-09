@@ -15,7 +15,7 @@
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
-                        <a href="#">
+                        <a href="index.xhtml">
                             <h1>Medical.</h1>
                             <h2>Przychodnia lekarska</h2>
                         </a>
@@ -31,6 +31,9 @@
                     </li>
                     <li>
                         <a href="terms.xhtml">Terminy</a>
+                    </li>
+                    <li>
+                        <a href="places.xhtml">Miejsca</a>
                     </li>
                 </ul>
                 <footer>
@@ -54,7 +57,7 @@
                             <div class="pull-left">
                                 <h1>Lista wizyt</h1>
                             </div>
-                            <h:form>
+                            <h:form id="form">
                                 <h:dataTable id="prod" value="#{visit.getVisits(login.user)}" var="item" styleClass="table">
                                     <h:column>
                                         <f:facet name="header">Pacjent</f:facet>  
@@ -70,7 +73,9 @@
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Operacje</f:facet>
-                                        <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right"/>
+                                        <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                            <f:ajax render=":form" />
+                                        </h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
