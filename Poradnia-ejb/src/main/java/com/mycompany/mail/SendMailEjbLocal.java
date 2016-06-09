@@ -14,5 +14,5 @@ import javax.ejb.Local;
 @Local
 public interface SendMailEjbLocal
 {
-    
+    void sendMail(String to, String subject, String body);
 }

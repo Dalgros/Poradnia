@@ -8,13 +8,11 @@ package com.mycompany.cdi;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
-import com.mycompany.model.VisitDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -160,7 +158,6 @@ public class PatientBean implements Serializable {
         patient.setLastName(lastName);
         patient.setPassword(password);
         patient.setPhoneNumber(Integer.parseInt(phoneNumber));
-        patient.setSpecialization(email);
         patient.setUserName(username);
 
         patientDTOFacade.create(patient);

@@ -6,7 +6,7 @@
 package com.mycompany.mail;
 
 import java.util.Date;
-import javax.annotation.Resource;
+import java.util.Properties;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -23,13 +23,16 @@ import javax.mail.internet.MimeMessage;
 @Stateless
 public class SendMailEjb implements SendMailEjbLocal
 {
-
-    @Resource(name = "mail/mySession")
-    private Session session;
-
+    @Override
     @Asynchronous
     public void sendMail(String to, String subject, String body)
     {
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "poczta.o2.pl");
+        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.auth", "true");
+        props.setProperty("mail.smtp.ssl.enable", "true");
+        Session session = Session.getInstance(props);
         MimeMessage m = new MimeMessage(session);
         try
         {
@@ -37,7 +40,7 @@ public class SendMailEjb implements SendMailEjbLocal
             {
                 new InternetAddress(to)
             };
-            m.setFrom(); // pobrany z ustawien Session
+            m.setFrom(new InternetAddress("user1357@o2.pl"));
             m.setRecipients(Message.RecipientType.TO, address);
             m.setSubject(subject);
             m.setSentDate(new Date());
@@ -45,7 +48,6 @@ public class SendMailEjb implements SendMailEjbLocal
             Transport.send(m, "user1357", "user1357password");
         } catch (MessagingException e)
         {
-            //log
             //log.log(Level.SEVERE, "Error while sending mail", e);
         }
     }

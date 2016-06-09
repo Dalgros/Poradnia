@@ -58,10 +58,6 @@ public class PatientDTO implements Serializable
     @Column(name = "EMAIL")
     private String email;
     
-    @Size(max = 50)
-    @Column(name = "SPECIALIZATION")
-    private String specialization;
-    
     @Size(max = 20)
     @Column(name = "USERNAME")
     private String userName;
@@ -124,16 +120,6 @@ public class PatientDTO implements Serializable
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    public String getSpecialization()
-    {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization)
-    {
-        this.specialization = specialization;
     }
 
     public String getUserName()

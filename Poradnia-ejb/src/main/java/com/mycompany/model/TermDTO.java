@@ -112,7 +112,9 @@ public class TermDTO implements Serializable
     @Override
     public String toString()
     {
-        return "com.mycompany.model.TermDTO[ id=" + id + " ]";
+        String temp;
+        temp = "Data: " + date + " , Godzina: " + time;
+        return temp;
     }
     
 }

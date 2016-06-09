@@ -9,6 +9,7 @@ import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
 import com.mycompany.interfaces.TermDTOFacadeLocal;
 import com.mycompany.interfaces.VisitDTOFacadeLocal;
+import com.mycompany.mail.SendMailEjbLocal;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
 import com.mycompany.model.VisitDTO;
@@ -29,6 +30,9 @@ import javax.inject.Named;
 public class VisitBean implements Serializable {
 
     @EJB
+    private SendMailEjbLocal sendMailEjb;
+
+    @EJB
     private TermDTOFacadeLocal termDTOFacade;
 
     @EJB
@@ -39,6 +43,8 @@ public class VisitBean implements Serializable {
 
     @EJB
     private DoctorDTOFacadeLocal doctorDTOFacade;
+    
+    
 
     private String selectedTerm;
     private String selectedDoctor;
@@ -120,6 +126,19 @@ public class VisitBean implements Serializable {
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
 
         visitDTOFacade.create(visit);
+        
+        String subject = "Przypomnienie o wizycie lekarskiej";
+        
+        String body = "Witaj " + visit.getPatient().getFirstName() + "!\n" +
+                "Umówiono Pana/Panią na wizytę lekarską u lekarza " + visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName() + ".\n" + 
+                "Wizyta odbedzie się w przychodni pry w mieście " + visit.getPlace().getCity() + " pod adresem " + visit.getPlace().getStreet() + " " + 
+                visit.getPlace().getBuildingNumber() + " w pokoju numer " + visit.getPlace().getRoomNumber() + ".\n" +
+                "Termin wizyty: " + visit.getTerm().getDate() + " o godzinie " + visit.getTerm().getTime() + "\n" + 
+                "Dziękujemy za korzystanie z usług naszej poradni.\n" + 
+                "Z poważaniem,"+
+                "Sekretariat poradni lekarskiej.";
+        
+        sendMailEjb.sendMail(visit.getPatient().getEmail(), subject, body);
 
         return "visits.xhtml?faces-redirect=true";
     }
