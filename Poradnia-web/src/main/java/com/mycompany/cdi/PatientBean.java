@@ -59,7 +59,7 @@ public class PatientBean implements Serializable {
         return patientDTOFacade;
     }
 
-    public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
+   ; public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
         this.patientDTOFacade = patientDTOFacade;
     }
 

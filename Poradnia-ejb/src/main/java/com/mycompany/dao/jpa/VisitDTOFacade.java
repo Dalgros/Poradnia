@@ -67,7 +67,7 @@ public class VisitDTOFacade extends AbstractFacade<VisitDTO> implements VisitDTO
         try
         {
             Query query = em.createNamedQuery("find visits by doctor");
-            query.setParameter(1, doctor);
+          //  query.setParameter(1, doctor);
             
             result = query.getResultList();
             return result;
