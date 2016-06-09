@@ -3,14 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Miejsca - panel lekarza</title>
+        <title>Nowy termin - panel administratora</title>
     </h:head>
     <h:body>
+
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -23,6 +25,9 @@
                     </li>
                     <li>
                         <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
                     </li>
                     <li>
                         <a href="patients.xhtml">Pacjenci</a>
@@ -46,52 +51,40 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Miejsca</span>
+                            <span class="title">Dodaj termin</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
-                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>                        
-                        </div>
-                    </div>
-                    <div class="row" style="padding: 50px 0;">
-                        <div class="col-md-12">
-                            <div class="pull-left">
-                                <h1>Lista miejsc</h1>
-                            </div>
-                            <h:form>
-                                <h:dataTable id="prod" value="#{place.places}" var="item" styleClass="table">
-                                    <h:column>
-                                        <f:facet name="header">Miasto</f:facet>  
-                                        <h:outputText value="#{item.city}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Ulica</f:facet>  
-                                        <h:outputText value="#{item.street}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Numer budynku</f:facet>  
-                                        <h:outputText value="#{item.buildingNumber}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Numer pokoju</f:facet>  
-                                        <h:outputText value="#{item.roomNumber}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Opis</f:facet>  
-                                        <h:outputText value="#{item.description}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Liczba wizyt</f:facet>  
-                                        <h:outputText value="#{fn:length(item.visits)}" />
-                                    </h:column>
-                                </h:dataTable>
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
                             </h:form>
                         </div>
                     </div>
+                    <div class="row" style="padding: 50px 0;">
+                        <h1>Dodaj nowy termin wizyt</h1>
+                        <h:form>
+                            <div class="container-fluid">
+                                <div class="row" style="padding-bottom: 25px;">
+                                    <div class="col-md-6">
+                                        <label>Data (format - DD.MM.RRRR)</label>
+                                        <h:inputText id="date" value="#{term.date}" a:placeholder="Data (format DD.MM.RRR)" class="input-lg" required="true" />
+                                        <h:message for="date" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Godzina (format HH:MM)</label>
+                                        <h:inputText id="time" value="#{term.time}" a:placeholder="Godzina (format HH:MM)" class="input-lg" required="true" />
+                                        <h:message for="time" />
+                                    </div>
+                                </div>
+                                <div class="row line">
+                                    <div class="col-md-12">
+                                        <h:commandButton action="#{term.submit}" value="Dodaj termin" class="btn btn-red" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
                 </div>
             </div>
-
         </div>
 
         <script src="../js/jquery.js"></script>

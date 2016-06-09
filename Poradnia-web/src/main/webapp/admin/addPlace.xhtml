@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <title>Nowe miejsce - panel administratora</title>
+    </h:head>
+    <h:body>
+
+
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="index.xhtml">
+                            <h1>Medical.</h1>
+                            <h2>Przychodnia lekarska</h2>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
+                    </li>
+                    <li>
+                        <a href="patients.xhtml">Pacjenci</a>
+                    </li>
+                    <li>
+                        <a href="visits.xhtml">Wizyty</a>
+                    </li>
+                    <li>
+                        <a href="terms.xhtml">Terminy</a>
+                    </li>
+                    <li>
+                        <a href="places.xhtml">Miejsca</a>
+                    </li>
+                </ul>
+                <footer>
+                    <p>Marcin Kaczorowski, <br />Karol Nowicki</p>
+                </footer>
+            </div>
+
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row headline-row">
+                        <div class="col-md-6">
+                            <span class="title">Dodaj miejsce</span>
+                        </div>
+                        <div class="col-md-6 text-right" style="padding-top: 10px;">
+                            <h:form>
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 50px 0;">
+                        
+                         <div class="col-md-12">
+                            <h1>Dodaj nowe miejsce przyjęć</h1>
+                            <h:form>
+                                <div class="container-fluid">
+                                    <div class="row" style="padding-bottom: 25px;">
+                                        <div class="col-md-4">
+                                            <label>Miasto</label>
+                                            <h:inputText id="city" value="#{place.city}" a:placeholder="Miasto" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Ulica</label>
+                                            <h:inputText id="street" value="#{place.street}" a:placeholder="Ulica" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Numer budynku</label>
+                                            <h:inputText id="buildingNumber" value="#{place.buildingNumber}" a:placeholder="Numer budynku" class="input-lg" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom: 25px;">
+                                        <div class="col-md-4">
+                                            <label>Numer pokoju</label>
+                                            <h:inputText id="roomNumber" value="#{place.roomNumber}" a:placeholder="Numer pokoju" class="input-lg" required="true" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Opis</label>
+                                            <h:inputText id="description" value="#{place.description}" a:placeholder="Opis" class="input-lg" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row line">
+                                        <div class="col-md-12">
+                                            <h:commandButton action="#{place.submit}" value="Dodaj miejsce" class="btn btn-red" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </h:body>
+</html>
+

@@ -8,9 +8,10 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Miejsca - panel lekarza</title>
+        <title>Terminy - panel administratora</title>
     </h:head>
     <h:body>
+
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -23,6 +24,9 @@
                     </li>
                     <li>
                         <a href="index.xhtml">START</a>
+                    </li>
+                    <li>
+                        <a href="doctors.xhtml">Lekarze</a>
                     </li>
                     <li>
                         <a href="patients.xhtml">Pacjenci</a>
@@ -46,44 +50,41 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Miejsca</span>
+                            <span class="title">Lekarze</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
-                                Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>                        
+                                Jesteś zalogowany/a jako #{login.user.userName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
+                            </h:form>
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
                         <div class="col-md-12">
                             <div class="pull-left">
-                                <h1>Lista miejsc</h1>
+                                <h1>Lista terminów</h1>
                             </div>
-                            <h:form>
-                                <h:dataTable id="prod" value="#{place.places}" var="item" styleClass="table">
+                            <div class="pull-right">
+                                <a href="addTerm.xhtml"><button class="btn btn-red">+ Dodaj termin</button></a>
+                            </div>
+                            <h:form id="form">
+                                <h:dataTable id="prod" value="#{term.terms}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Miasto</f:facet>  
-                                        <h:outputText value="#{item.city}" />
+                                        <f:facet name="header">Data</f:facet>  
+                                        <h:outputText value="#{item.date}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Ulica</f:facet>  
-                                        <h:outputText value="#{item.street}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Numer budynku</f:facet>  
-                                        <h:outputText value="#{item.buildingNumber}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Numer pokoju</f:facet>  
-                                        <h:outputText value="#{item.roomNumber}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Opis</f:facet>  
-                                        <h:outputText value="#{item.description}" />
+                                        <f:facet name="header">Godzina</f:facet>  
+                                        <h:outputText value="#{item.time}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Liczba wizyt</f:facet>  
                                         <h:outputText value="#{fn:length(item.visits)}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Operacje</f:facet>
+                                        <h:commandButton action="#{term.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                            <f:ajax render=":form" />
+                                        </h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
