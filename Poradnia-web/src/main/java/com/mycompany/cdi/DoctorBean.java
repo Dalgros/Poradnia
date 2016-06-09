@@ -9,6 +9,7 @@ import com.mycompany.model.DoctorDTO;
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.model.PatientDTO;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
