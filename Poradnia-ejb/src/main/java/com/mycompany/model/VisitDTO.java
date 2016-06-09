@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "VISIT")
+@NamedQueries({
+    @NamedQuery(name = "find visits by patient",
+            query = "select v from VisitDTO v where v.patient = ?1"),
+    @NamedQuery(name = "find visits by doctor",
+            query = "select v from VisitDTO v where v.doctor = ?1")
+})
 public class VisitDTO implements Serializable
 {
     @Id

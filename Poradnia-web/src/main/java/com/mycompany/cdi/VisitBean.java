@@ -51,6 +51,16 @@ public class VisitBean implements Serializable {
         return "";
     }
 
+    public List<VisitDTO> getVisitsByDoctors(DoctorDTO doctor)
+    {
+        return visitDTOFacade.findByDoctor(doctor);
+    }
+    
+    public List<VisitDTO> getVisitsByPatients(PatientDTO patient)
+    {
+        return visitDTOFacade.findByPatient(patient);
+    }
+    
     public List<VisitDTO> getVisits(DoctorDTO doctor) {
         List<VisitDTO> list = getVisits();
         List<VisitDTO> result = new LinkedList<VisitDTO>();

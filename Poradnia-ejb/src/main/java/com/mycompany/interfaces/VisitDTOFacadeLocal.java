@@ -5,6 +5,8 @@
  */
 package com.mycompany.interfaces;
 
+import com.mycompany.model.DoctorDTO;
+import com.mycompany.model.PatientDTO;
 import com.mycompany.model.VisitDTO;
 import java.util.List;
 import javax.ejb.Local;
@@ -30,5 +32,9 @@ public interface VisitDTOFacadeLocal
     List<VisitDTO> findRange(int[] range);
 
     int count();
+    
+    List<VisitDTO> findByPatient(PatientDTO patient);
+            
+    List<VisitDTO> findByDoctor(DoctorDTO doctor);
     
 }

@@ -6,10 +6,15 @@
 package com.mycompany.dao.jpa;
 
 import com.mycompany.interfaces.VisitDTOFacadeLocal;
+import com.mycompany.model.DoctorDTO;
+import com.mycompany.model.PatientDTO;
 import com.mycompany.model.VisitDTO;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -31,6 +36,46 @@ public class VisitDTOFacade extends AbstractFacade<VisitDTO> implements VisitDTO
     public VisitDTOFacade()
     {
         super(VisitDTO.class);
+    }
+    
+    @Override
+    public List<VisitDTO> findByPatient(PatientDTO patient)
+    {
+        em = getEntityManager();
+        List<VisitDTO> result;
+
+        try
+        {
+            Query query = em.createNamedQuery("find visits by patient");
+            query.setParameter(1, patient);
+            
+            result = query.getResultList();
+            return result;
+            
+        } catch (NoResultException e)
+        {
+            return null;
+        }
+    }
+    
+    @Override
+    public List<VisitDTO> findByDoctor(DoctorDTO doctor)
+    {
+        em = getEntityManager();
+        List<VisitDTO> result;
+
+        try
+        {
+            Query query = em.createNamedQuery("find visits by doctor");
+            query.setParameter(1, doctor);
+            
+            result = query.getResultList();
+            return result;
+            
+        } catch (NoResultException e)
+        {
+            return null;
+        }
     }
     
 }

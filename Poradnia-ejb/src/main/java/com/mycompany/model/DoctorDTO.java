@@ -31,7 +31,10 @@ import javax.validation.constraints.Size;
 @Table(name = "DOCTOR")
 @NamedQueries({
     @NamedQuery(name = "check doctor",
-            query = "select d from DoctorDTO d where d.userName = ?1 and d.password = ?2")
+            query = "select d from DoctorDTO d where d.userName = ?1 and d.password = ?2"),
+    @NamedQuery(name = "find doctors by patient",
+            query = "select d from DoctorDTO d where ?1 in (d.patients)")
+    
 })
 public class DoctorDTO implements Serializable
 {
@@ -70,11 +73,10 @@ public class DoctorDTO implements Serializable
     @Size(max = 20)
     @Column(name = "PASSWORD")
     private String password;
-    
-    //@ManyToMany(mappedBy="doctors")
+
     @ManyToMany
     @JoinTable(
-      name="PATDOC",
+      name="PATIENT",
       joinColumns=@JoinColumn(name="ID_DOCTOR", referencedColumnName="ID"),
       inverseJoinColumns=@JoinColumn(name="ID_PATIENT", referencedColumnName="ID"))
     private List<PatientDTO> patients = new LinkedList<>();

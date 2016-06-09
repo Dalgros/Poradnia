@@ -40,6 +40,11 @@ public class PatientBean implements Serializable {
     public List<PatientDTO> getPatients() {
         return patientDTOFacade.findAll();
     }
+    
+    public List<PatientDTO> getPatientsByDoctors(DoctorDTO doctor)
+    {
+        return patientDTOFacade.findPatients(doctor);
+    }
 
     public PatientDTO getPatient(Integer id) {
         return patientDTOFacade.find(id);
@@ -54,6 +59,7 @@ public class PatientBean implements Serializable {
     public PatientDTOFacadeLocal getPatientDTOFacade() {
         return patientDTOFacade;
     }
+    
 
     public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
         this.patientDTOFacade = patientDTOFacade;

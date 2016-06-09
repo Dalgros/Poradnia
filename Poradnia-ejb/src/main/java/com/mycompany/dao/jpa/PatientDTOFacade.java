@@ -6,7 +6,9 @@
 package com.mycompany.dao.jpa;
 
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
+import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -50,6 +52,26 @@ public class PatientDTOFacade extends AbstractFacade<PatientDTO> implements Pati
             return result;
         } 
         catch(NoResultException e) 
+        {
+            return null;
+        }
+    }
+    
+    @Override
+    public List<PatientDTO> findPatients(DoctorDTO doctor)
+    {
+        em = getEntityManager();
+        List<PatientDTO> result;
+
+        try
+        {
+            Query query = em.createNamedQuery("find patients by doctor");
+            query.setParameter(1, doctor);
+            
+            result = query.getResultList();
+            return result;
+            
+        } catch (NoResultException e)
         {
             return null;
         }

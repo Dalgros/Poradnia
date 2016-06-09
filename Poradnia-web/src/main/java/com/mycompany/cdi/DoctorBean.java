@@ -7,6 +7,7 @@ package com.mycompany.cdi;
 
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
+import com.mycompany.model.PatientDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -63,6 +64,11 @@ public class DoctorBean implements Serializable
         
         return "success";
     }
+    
+    public List<DoctorDTO> getDoctorsByPatient(PatientDTO patient)
+    {
+        return doctorDTOFacade.findDoctors(patient);
+    }
 
     public DoctorDTOFacadeLocal getDoctorDTOFacade()
     {
@@ -73,5 +79,7 @@ public class DoctorBean implements Serializable
     {
         this.doctorDTOFacade = doctorDTOFacade;
     }
+    
+    
 
 }

@@ -6,6 +6,7 @@
 package com.mycompany.interfaces;
 
 import com.mycompany.model.DoctorDTO;
+import com.mycompany.model.PatientDTO;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,5 +33,7 @@ public interface DoctorDTOFacadeLocal
     int count();
     
     DoctorDTO checkUser(String userName, String password);
+    
+    List<DoctorDTO> findDoctors(PatientDTO patient);
     
 }

@@ -7,6 +7,7 @@ package com.mycompany.dao.jpa;
 
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.model.DoctorDTO;
+import com.mycompany.model.PatientDTO;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,6 +50,26 @@ public class DoctorDTOFacade extends AbstractFacade<DoctorDTO> implements Doctor
             query.setParameter(2, password);
             result = (DoctorDTO) query.getSingleResult();
             return result;
+        } catch (NoResultException e)
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public List<DoctorDTO> findDoctors(PatientDTO patient)
+    {
+        em = getEntityManager();
+        List<DoctorDTO> result;
+
+        try
+        {
+            Query query = em.createNamedQuery("find doctors by patient");
+            query.setParameter(1, patient);
+            
+            result = query.getResultList();
+            return result;
+            
         } catch (NoResultException e)
         {
             return null;
