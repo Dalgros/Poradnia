@@ -62,18 +62,41 @@ public class DoctorDTOFacade extends AbstractFacade<DoctorDTO> implements Doctor
     {
         List<DoctorDTO> list = findAll();
         List<DoctorDTO> result = new LinkedList<DoctorDTO>();
-        
-        for(DoctorDTO doctor : list) {
-            for(PatientDTO item : doctor.getPatients()) {
-                if(item.equals(patient)) {
+
+        for (DoctorDTO doctor : list)
+        {
+            for (PatientDTO item : doctor.getPatients())
+            {
+                if (item.equals(patient))
+                {
                     result.add(doctor);
                     break;
+
                 }
+
             }
         }
-        
         return result;
     }
-
-
 }
+
+            /*
+
+    @Override
+    public List<DoctorDTO> findDoctors(PatientDTO patient)
+    {
+        em = getEntityManager();
+        List<DoctorDTO> result;
+
+        try
+        {
+            Query query = em.createNamedQuery("find doctors by patient");
+            query.setParameter(1, patient);
+            result = query.getResultList();
+            return result;
+        } catch (NoResultException e)
+        {
+            return null;
+        }
+    }
+             */

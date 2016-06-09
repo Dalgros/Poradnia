@@ -49,7 +49,6 @@ public class VisitBean implements Serializable {
     @EJB
     private PlaceDTOFacadeLocal placeDTOFacade;
     
-    
 
     private String selectedTerm;
     private String selectedDoctor;
@@ -114,13 +113,13 @@ public class VisitBean implements Serializable {
     }
 
     public String getSelectedPlace() {
-        return selectedPlace;
-    }
-
-    public void setSelectedPlace(String selectedPlace) {
-        this.selectedPlace = selectedPlace;
-    }
-
+         return selectedPlace;
+     }
+ 
+     public void setSelectedPlace(String selectedPlace) {
+         this.selectedPlace = selectedPlace;
+     }
+ 
     public String submit(Integer id) {
         VisitDTO visit = new VisitDTO();
 
@@ -150,7 +149,7 @@ public class VisitBean implements Serializable {
                 visit.getPlace().getBuildingNumber() + " w pokoju numer " + visit.getPlace().getRoomNumber() + ".\n" +
                 "Termin wizyty: " + visit.getTerm().getDate() + " o godzinie " + visit.getTerm().getTime() + "\n" + 
                 "Dziękujemy za korzystanie z usług naszej poradni.\n" + 
-                "Z poważaniem,"+
+                "Z poważaniem,\n"+
                 "Sekretariat poradni lekarskiej.";
         
         sendMailEjb.sendMail(visit.getPatient().getEmail(), subject, body);
