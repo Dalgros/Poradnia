@@ -2,14 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <h:head>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <link href="../css/bootstrap.min.css" rel="stylesheet" />
         <link href="../css/style.css" rel="stylesheet" />
-        <title>Wizyty - panel lekarza</title>
+        <title>Miejsca - panel pacjenta</title>
     </h:head>
     <h:body>
+
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -24,13 +26,10 @@
                         <a href="index.xhtml">START</a>
                     </li>
                     <li>
-                        <a href="patients.xhtml">Pacjenci</a>
+                        <a href="doctors.xhtml">Lekarze</a>
                     </li>
                     <li>
                         <a href="visits.xhtml">Wizyty</a>
-                    </li>
-                    <li>
-                        <a href="terms.xhtml">Terminy</a>
                     </li>
                     <li>
                         <a href="places.xhtml">Miejsca</a>
@@ -45,55 +44,46 @@
                 <div class="container-fluid">
                     <div class="row headline-row">
                         <div class="col-md-6">
-                            <span class="title">Wizyty</span>
+                            <span class="title">Miejsca</span>
                         </div>
                         <div class="col-md-6 text-right" style="padding-top: 10px;">
                             <h:form>
                                 Jesteś zalogowany/a jako #{login.user.firstName} #{login.user.lastName}, <h:commandLink action="#{login.logout}" value="wyloguj się" />
-                            </h:form>                        
+                            </h:form>
                         </div>
                     </div>
                     <div class="row" style="padding: 50px 0;">
+
                         <div class="col-md-12">
                             <div class="pull-left">
-                                <h1>Lista wizyt</h1>
+                                <h1>Lista miejsc</h1>
                             </div>
-                            <h:form id="form">
-
-                                <h:dataTable id="prod" value="#{visit.getVisitsByDoctors(login.user)}" var="item" styleClass="table">
+                            <h:form>
+                                <h:dataTable id="prod" value="#{place.places}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Pacjent</f:facet>  
-                                        <h:outputText value="#{item.patient.firstName} #{item.patient.lastName}" />
+                                        <f:facet name="header">Miasto</f:facet>  
+                                        <h:outputText value="#{item.city}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Lekarz</f:facet>  
-                                        <h:outputText value="#{item.doctor.firstName} #{item.doctor.lastName}" />
+                                        <f:facet name="header">Ulica</f:facet>  
+                                        <h:outputText value="#{item.street}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Adres</f:facet>  
-                                        <h:outputText value="#{item.place.city} #{item.place.street} #{item.place.buildingNumber}" />
+                                        <f:facet name="header">Numer budynku</f:facet>  
+                                        <h:outputText value="#{item.buildingNumber}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Numer pokoju</f:facet>  
-                                        <h:outputText value="#{item.place.roomNumber}" />
+                                        <h:outputText value="#{item.roomNumber}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Godzina</f:facet>  
-                                        <h:outputText value="#{item.term.time}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Data</f:facet>  
-                                        <h:outputText value="#{item.term.date}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Operacje</f:facet>
-                                        <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
-                                            <f:ajax render=":form" />
-                                        </h:commandButton>
+                                        <f:facet name="header">Opis</f:facet>  
+                                        <h:outputText value="#{item.description}" />
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
                         </div>
+
                     </div>
                 </div>
             </div>

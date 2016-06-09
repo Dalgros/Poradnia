@@ -30,8 +30,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "check doctor",
             query = "select d from DoctorDTO d where d.userName = ?1 and d.password = ?2"),
-    @NamedQuery(name = "find doctors by patient",
-            query = "select d from DoctorDTO d where ?1 in (d.patients)")
     
 })
 public class DoctorDTO implements Serializable

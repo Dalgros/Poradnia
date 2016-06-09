@@ -7,11 +7,13 @@ package com.mycompany.cdi;
 
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
+import com.mycompany.interfaces.PlaceDTOFacadeLocal;
 import com.mycompany.interfaces.TermDTOFacadeLocal;
 import com.mycompany.interfaces.VisitDTOFacadeLocal;
 import com.mycompany.mail.SendMailEjbLocal;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
+import com.mycompany.model.PlaceDTO;
 import com.mycompany.model.VisitDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -43,12 +45,16 @@ public class VisitBean implements Serializable {
 
     @EJB
     private DoctorDTOFacadeLocal doctorDTOFacade;
+
+    @EJB
+    private PlaceDTOFacadeLocal placeDTOFacade;
     
     
 
     private String selectedTerm;
     private String selectedDoctor;
     private String selectedPatient;
+    private String selectedPlace;
 
     public List<VisitDTO> getVisits() {
         return visitDTOFacade.findAll();
@@ -107,6 +113,14 @@ public class VisitBean implements Serializable {
         this.selectedPatient = selectedPatient;
     }
 
+    public String getSelectedPlace() {
+        return selectedPlace;
+    }
+
+    public void setSelectedPlace(String selectedPlace) {
+        this.selectedPlace = selectedPlace;
+    }
+
     public String submit(Integer id) {
         VisitDTO visit = new VisitDTO();
 
@@ -122,7 +136,8 @@ public class VisitBean implements Serializable {
         } else {
             visit.setPatient((PatientDTO) patientDTOFacade.find(Integer.parseInt(selectedPatient.substring(0, selectedPatient.indexOf(" | ")))));
         }
-
+        
+        visit.setPlace(((PlaceDTO) placeDTOFacade.find(Integer.parseInt(selectedPlace.substring(0, selectedPlace.indexOf(" | "))))));
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
 
         visitDTOFacade.create(visit);
