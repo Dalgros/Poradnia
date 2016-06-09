@@ -7,6 +7,7 @@ package com.mycompany.dao.jpa;
 
 import com.mycompany.interfaces.AdminDTOFacadeLocal;
 import com.mycompany.model.AdminDTO;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

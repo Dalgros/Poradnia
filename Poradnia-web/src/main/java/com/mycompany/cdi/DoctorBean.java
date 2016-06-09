@@ -5,12 +5,14 @@
  */
 package com.mycompany.cdi;
 
+import com.mycompany.filter.AuthorizationFilter;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.model.PatientDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -26,6 +28,8 @@ public class DoctorBean implements Serializable {
     @EJB
     private DoctorDTOFacadeLocal doctorDTOFacade;
 
+    private static Logger log = Logger.getLogger(AuthorizationFilter.class.getName());
+    
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -42,6 +46,8 @@ public class DoctorBean implements Serializable {
         doctor.setLastName(lName);
 
         doctorDTOFacade.create(doctor);
+        
+        log.info("Utworzono lekarza " + fName + " " + lName);
 
         return "success";
     }
@@ -56,14 +62,18 @@ public class DoctorBean implements Serializable {
 
     public String delete(Integer id) {
         doctorDTOFacade.remove(doctorDTOFacade.find(id));
-
+        
+        log.info("Usunięto lekarza o identyfikatorze " + id);
+        
         return "";
     }
 
     public String edit(Integer id) {
         doctorDTOFacade.edit(doctorDTOFacade.find(id));
 
-        return "success";
+        log.info("Edytowano lekarza o identyfikatorze " + id);
+        
+        return "";
     }
 
     public List<DoctorDTO> getDoctorsByPatient(PatientDTO patient) {
@@ -162,6 +172,7 @@ public class DoctorBean implements Serializable {
 
     public String submit() {
         if (!password.equals(password2)) {
+            log.fine("Podano różne hasła podczas rejestracji lekarza");
             return "addDoctor.xhtml?faces-redirect=true";
         }
 
@@ -177,6 +188,8 @@ public class DoctorBean implements Serializable {
 
         doctorDTOFacade.create(doctor);
 
+        log.info("Dodano lekarza " + doctor.getFirstName() + " " + doctor.getLastName());
+        
         return "doctors.xhtml?faces-redirect=true";
     }
 

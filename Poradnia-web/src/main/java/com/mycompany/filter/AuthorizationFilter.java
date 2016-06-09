@@ -9,6 +9,7 @@ import com.mycompany.model.AdminDTO;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.faces.application.ResourceHandler;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpSession;
 @WebFilter(filterName = "AuthorizationFilter", urlPatterns = {"*.xhtml"})
 public class AuthorizationFilter implements Filter {
 
+    private static Logger log = Logger.getLogger(AuthorizationFilter.class.getName());
+    
     public AuthorizationFilter() {
     }
 
@@ -55,10 +58,11 @@ public class AuthorizationFilter implements Filter {
             if (reqURI.indexOf("/login.xhtml") >= 0 || adminLogin || doctorLogin || patientLogin || t) {
                 chain.doFilter(request, response);
             } else {
+                log.warning("Zablokowano nieautoryzowany dostęp do zasobów");
                 resp.sendRedirect(reqt.getContextPath() + "/login.xhtml");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.warning(e.getMessage());
         }
     }
 

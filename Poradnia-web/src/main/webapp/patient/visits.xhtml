@@ -58,7 +58,7 @@
                             <h1>Lista wizyt</h1>
                         </div>
                         <h:form id="form">
-                            <h:dataTable id="prod" value="#{visit.visits}" var="item" styleClass="table">
+                            <h:dataTable id="prod" value="#{visit.getVisitsByPatients(login.user)}" var="item" styleClass="table">
                                 <h:column>
                                     <f:facet name="header">Pacjent</f:facet>  
                                     <h:outputText value="#{item.patient.firstName} #{item.patient.lastName}" />

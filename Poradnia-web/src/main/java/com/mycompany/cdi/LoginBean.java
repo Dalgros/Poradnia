@@ -5,6 +5,7 @@
  */
 package com.mycompany.cdi;
 
+import com.mycompany.filter.AuthorizationFilter;
 import com.mycompany.interfaces.AdminDTOFacadeLocal;
 import com.mycompany.interfaces.DoctorDTOFacadeLocal;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
@@ -12,6 +13,7 @@ import com.mycompany.model.AdminDTO;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
 import java.io.Serializable;
+import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -34,6 +36,8 @@ public class LoginBean implements Serializable {
     private DoctorDTOFacadeLocal doctorDTOFacade;
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
+    
+    private static Logger log = Logger.getLogger(LoginBean.class.getName());
 
     private Object user;
 
@@ -88,10 +92,13 @@ public class LoginBean implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().put("username", user);
             if (user instanceof AdminDTO) {
+                log.fine("Zalogował się administrator" + ((AdminDTO) user).getUserName());
                 return "/admin/index.xhtml?faces-redirect=true";
             } else if (user instanceof DoctorDTO) {
+                log.fine("Zalogował się lekarz" + ((DoctorDTO) user).getUserName());
                 return "/doctor/index.xhtml?faces-redirect=true";
             } else if (user instanceof PatientDTO) {
+                log.fine("Zalogował się pacjent" + ((PatientDTO) user).getUserName());
                 return "/patient/index.xhtml?faces-redirect=true";
             }
         } else {
@@ -100,6 +107,7 @@ public class LoginBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Nieprawidłowe dane",
                             "Proszę podaj poprawną nazwę użytkownika oraz hasło"));
+            log.warning("Nieprawidłowe dane logowania");
             return "/login.xhtml";
         }
 
@@ -108,7 +116,7 @@ public class LoginBean implements Serializable {
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        System.out.println("LOGOUTLOGOUT");
+        log.fine("Wylogował się użytkownik");
         return "/login.xhtml?faces-redirect=true";
     }
 

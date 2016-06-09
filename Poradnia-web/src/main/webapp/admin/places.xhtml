@@ -65,7 +65,7 @@
                         <div class="pull-right">
                             <a href="addPlace.xhtml"><button class="btn btn-red">+ Dodaj miejsce</button></a>
                         </div>
-                        <h:form>
+                        <h:form id="form">
                             <h:dataTable id="prod" value="#{place.places}" var="item" styleClass="table">
                                 <h:column>
                                     <f:facet name="header">Miasto</f:facet>  
@@ -90,6 +90,12 @@
                                 <h:column>
                                     <f:facet name="header">Liczba wizyt</f:facet>  
                                     <h:outputText value="#{fn:length(item.visits)}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Operacje</f:facet>
+                                    <h:commandButton action="#{place.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                        <f:ajax render=":form" />
+                                    </h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         </h:form>

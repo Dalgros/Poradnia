@@ -12,6 +12,7 @@ import com.mycompany.model.TermDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -26,6 +27,8 @@ public class PlaceBean implements Serializable {
 
     @EJB
     private PlaceDTOFacadeLocal placeDTOFacade;
+    
+    private static Logger log = Logger.getLogger(PlaceBean.class.getName());
 
     private String selectedPlace;
     private String city;
@@ -122,6 +125,8 @@ public class PlaceBean implements Serializable {
         place.setStreet(street);
         
         placeDTOFacade.create(place);
+        
+        log.info("Utworzono nowe miejsce w mieście " + place.getCity());
         
         return "places.xhtml?faces-redirect=true";
     }
