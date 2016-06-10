@@ -67,7 +67,7 @@
                             <div class="pull-right">
                                 <a href="addPatient.xhtml"><button class="btn btn-red">+ Dodaj pacjenta</button></a>
                             </div>
-                            <h:form>
+                            <h:form id="form">
                                 <h:dataTable id="prod" value="#{patient.patients}" var="item" styleClass="table">
                                     <h:column>
                                         <f:facet name="header">Imię</f:facet>  

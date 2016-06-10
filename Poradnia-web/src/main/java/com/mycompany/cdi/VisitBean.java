@@ -18,6 +18,7 @@ import com.mycompany.model.VisitDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -48,6 +49,9 @@ public class VisitBean implements Serializable {
 
     @EJB
     private PlaceDTOFacadeLocal placeDTOFacade;
+    
+
+    private static Logger log = Logger.getLogger(PlaceBean.class.getName());
     
 
     private String selectedTerm;
@@ -136,13 +140,16 @@ public class VisitBean implements Serializable {
             visit.setPatient((PatientDTO) patientDTOFacade.find(Integer.parseInt(selectedPatient.substring(0, selectedPatient.indexOf(" | ")))));
         }
         
-        visit.setPlace(((PlaceDTO) placeDTOFacade.find(Integer.parseInt(selectedPlace.substring(0, selectedPlace.indexOf(" | "))))));
+        visit.setPlace((PlaceDTO) placeDTOFacade.find(Integer.parseInt(selectedPlace.substring(0, selectedPlace.indexOf(" | ")))));
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
 
         visitDTOFacade.create(visit);
         
+        log.info("Dodano nową wizytyę dla pacjenta " + visit.getPatient().getFirstName() + " " + visit.getPatient().getLastName());
+        
         String subject = "Przypomnienie o wizycie lekarskiej";
         
+
         String body = "Witaj " + visit.getPatient().getFirstName() + "!\n" +
                 "Umówiono Pana/Panią na wizytę lekarską u lekarza " + visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName() + ".\n" + 
                 "Wizyta odbedzie się w przychodni pry w mieście " + visit.getPlace().getCity() + " pod adresem " + visit.getPlace().getStreet() + " " + 
@@ -151,6 +158,7 @@ public class VisitBean implements Serializable {
                 "Dziękujemy za korzystanie z usług naszej poradni.\n" + 
                 "Z poważaniem,\n"+
                 "Sekretariat poradni lekarskiej.";
+
         
         sendMailEjb.sendMail(visit.getPatient().getEmail(), subject, body);
 

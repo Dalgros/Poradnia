@@ -11,6 +11,7 @@ import com.mycompany.model.PatientDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -25,6 +26,8 @@ public class PatientBean implements Serializable {
 
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
+    
+    private static Logger log = Logger.getLogger(PatientBean.class.getName());
 
     private String firstName;
     private String lastName;
@@ -161,6 +164,8 @@ public class PatientBean implements Serializable {
         patient.setUserName(username);
 
         patientDTOFacade.create(patient);
+        
+        log.info("Dodano pacjenta " + patient.getFirstName() + " " + patient.getLastName());
 
         return "patients.xhtml?faces-redirect=true";
     }

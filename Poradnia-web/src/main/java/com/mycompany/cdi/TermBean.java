@@ -31,6 +31,8 @@ public class TermBean implements Serializable {
 
     @EJB
     private TermDTOFacadeLocal termDTOFacade;
+    
+    private static Logger log = Logger.getLogger(PlaceBean.class.getName());
 
     private String date;
     private String time;
@@ -93,6 +95,8 @@ public class TermBean implements Serializable {
             term.setDate(sql);
             term.setTime(time);
             termDTOFacade.create(term);
+            
+            log.info("Dodano termin " + term.getTime() + " " + term.getDate());
 
             return "terms.xhtml?faces-redirect=true";
         } catch (ParseException ex) {

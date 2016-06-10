@@ -7,6 +7,7 @@ package com.mycompany.dao.jpa;
 
 
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
@@ -17,7 +18,7 @@ public abstract class AbstractFacade<T>
 {
 
     private Class<T> entityClass;
-
+    
     public AbstractFacade(Class<T> entityClass)
     {
         this.entityClass = entityClass;

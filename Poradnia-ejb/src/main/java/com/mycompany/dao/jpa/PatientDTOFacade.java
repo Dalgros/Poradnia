@@ -8,6 +8,7 @@ package com.mycompany.dao.jpa;
 import com.mycompany.interfaces.PatientDTOFacadeLocal;
 import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.PatientDTO;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,21 +61,19 @@ public class PatientDTOFacade extends AbstractFacade<PatientDTO> implements Pati
     @Override
     public List<PatientDTO> findPatients(DoctorDTO doctor)
     {
-        em = getEntityManager();
-        List<PatientDTO> result;
-
-        try
-        {
-            Query query = em.createNamedQuery("find patients by doctor");
-            query.setParameter(1, doctor);
-            
-            result = query.getResultList();
-            return result;
-            
-        } catch (NoResultException e)
-        {
-            return null;
+        List<PatientDTO> list = findAll();
+        List<PatientDTO> result = new LinkedList<PatientDTO>();
+        
+        for(PatientDTO patient : list) {
+            for(DoctorDTO item : patient.getDoctors()) {
+                if(item.equals(doctor)) {
+                    result.add(patient);
+                    break;
+                }
+            }
         }
+        
+        return result;
     }
     
 }
