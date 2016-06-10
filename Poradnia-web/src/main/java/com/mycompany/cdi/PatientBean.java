@@ -18,7 +18,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author Marcin Kaczorowski, Karol Nowicki
+ * @author Karol
  */
 @Named("patient")
 @RequestScoped
@@ -147,6 +147,10 @@ public class PatientBean implements Serializable {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+    
+    public String submit() {
+        return submit(null);
     }
 
     public String submit(DoctorDTO doctor) {
