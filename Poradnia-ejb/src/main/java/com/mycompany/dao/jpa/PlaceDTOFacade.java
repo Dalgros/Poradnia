@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Stateless
 public class PlaceDTOFacade extends AbstractFacade<PlaceDTO> implements PlaceDTOFacadeLocal

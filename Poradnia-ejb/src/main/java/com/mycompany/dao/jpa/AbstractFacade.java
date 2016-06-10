@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 public abstract class AbstractFacade<T>
 {

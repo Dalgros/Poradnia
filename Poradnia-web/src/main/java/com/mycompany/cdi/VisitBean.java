@@ -26,7 +26,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("visit")
 @RequestScoped

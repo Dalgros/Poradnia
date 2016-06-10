@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Entity
 @Table(name = "VISIT")

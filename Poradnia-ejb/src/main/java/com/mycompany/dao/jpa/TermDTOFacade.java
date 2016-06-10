@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Stateless
 public class TermDTOFacade extends AbstractFacade<TermDTO> implements TermDTOFacadeLocal

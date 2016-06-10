@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Entity
 @Table(name="TERM")

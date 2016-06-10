@@ -18,7 +18,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Stateless
 public class DoctorDTOFacade extends AbstractFacade<DoctorDTO> implements DoctorDTOFacadeLocal

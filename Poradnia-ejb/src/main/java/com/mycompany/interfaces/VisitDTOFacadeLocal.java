@@ -13,7 +13,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Local
 public interface VisitDTOFacadeLocal

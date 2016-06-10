@@ -18,7 +18,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("patient")
 @RequestScoped
@@ -149,7 +149,7 @@ public class PatientBean implements Serializable {
         this.password2 = password2;
     }
 
-    public String submit() {
+    public String submit(DoctorDTO doctor) {
         if (!password.equals(password2)) {
             return "addPatient.xhtml?faces-redirect=true";
         }
@@ -162,6 +162,10 @@ public class PatientBean implements Serializable {
         patient.setPassword(password);
         patient.setPhoneNumber(Integer.parseInt(phoneNumber));
         patient.setUserName(username);
+        
+        List<DoctorDTO> docs = new LinkedList<DoctorDTO>();
+        docs.add(doctor);
+        patient.setDoctors(docs);
 
         patientDTOFacade.create(patient);
         

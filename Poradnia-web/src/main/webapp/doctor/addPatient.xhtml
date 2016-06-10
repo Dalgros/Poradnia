@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="row line">
                                     <div class="col-md-12">
-                                        <h:commandButton action="#{patient.submit}" value="Zarejestruj pacjenta" class="btn btn-red" />
+                                        <h:commandButton action="#{patient.submit(login.user)}" value="Zarejestruj pacjenta" class="btn btn-red" />
                                     </div>
                                 </div>
                             </div>
@@ -120,4 +120,3 @@
         </script>
     </h:body>
 </html>
-

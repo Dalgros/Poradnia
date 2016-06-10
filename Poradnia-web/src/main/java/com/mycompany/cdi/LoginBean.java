@@ -23,7 +23,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author Marcin
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("login")
 @ManagedBean

@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author Karol
+ * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Stateless
 public class SendMailEjb implements SendMailEjbLocal
