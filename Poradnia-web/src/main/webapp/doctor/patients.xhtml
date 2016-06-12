@@ -102,6 +102,9 @@
                                         <h:commandButton value="Aktualizuj wpis" action="#{patient.saveChanges}" class="btn btn-red btn-accept" rendered="#{patient.isEditable(item)}">
                                             <f:ajax execute=":form" render=":form" />
                                         </h:commandButton>
+                                        <h:button outcome="addVisit.xhtml" class="btn btn-add pull-right" rendered="#{not patient.isEditable(item)}">
+                                            <f:param name="id" value="#{item.id}" />
+                                        </h:button>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
