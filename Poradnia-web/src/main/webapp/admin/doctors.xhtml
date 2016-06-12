@@ -70,37 +70,48 @@
                             <h:form id="form">
                                 <h:dataTable id="prod" value="#{doctor.doctors}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Imię</f:facet>  
-                                        <h:outputText value="#{item.firstName}" />
+                                        <f:facet name="header">Imię</f:facet>  			
+                                        <h:inputText value="#{doctor.editable.firstName}" rendered="#{doctor.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.firstName}" rendered="#{not doctor.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Nazwisko</f:facet>  
-                                        <h:outputText value="#{item.lastName}" />
+                                        <h:inputText value="#{doctor.editable.lastName}" rendered="#{doctor.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.lastName}" rendered="#{not doctor.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Specjalizacja</f:facet>  
-                                        <h:outputText value="#{item.specialization}" />
+                                        <h:inputText value="#{doctor.editable.specialization}" rendered="#{doctor.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.specialization}" rendered="#{not doctor.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Numer telefonu</f:facet>  
-                                        <h:outputText value="#{item.phoneNumber}" />
+                                        <h:inputText value="#{doctor.editable.phoneNumber}" rendered="#{doctor.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.phoneNumber}" rendered="#{not doctor.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Adres email</f:facet>  
-                                        <h:outputText value="#{item.email}" />
+                                        <h:inputText value="#{doctor.editable.email}" rendered="#{doctor.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.email}" rendered="#{not doctor.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Liczba pacjentów</f:facet>  
+                                        <f:facet name="header">Pacjenci</f:facet>  
                                         <h:outputText value="#{fn:length(item.patients)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Liczba wizyt</f:facet>  
+                                        <f:facet name="header">Wizyty</f:facet>  
                                         <h:outputText value="#{fn:length(item.visits)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Operacje</f:facet>  
-                                        <h:commandButton action="#{doctor.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                        <h:commandButton action="#{doctor.delete(item.id)}" class="btn btn-remove pull-right" rendered="#{not doctor.isEditable(item)}">
                                             <f:ajax render=":form" />
+                                        </h:commandButton>
+                                        <h:commandButton action="#{doctor.editAction(item)}" class="btn btn-edit pull-right" rendered="#{not doctor.isEditable(item)}">   
+                                            <f:ajax render=":form" />
+                                        </h:commandButton>
+                                        <h:commandButton value="Aktualizuj wpis" action="#{doctor.saveChanges}" class="btn btn-red btn-accept" rendered="#{doctor.isEditable(item)}">
+                                            <f:ajax execute=":form" render=":form" />
                                         </h:commandButton>
                                     </h:column>
                                 </h:dataTable>

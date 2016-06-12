@@ -243,6 +243,10 @@ h1 {
     padding: 10px 20px;
 }
 
+.btn-accept {
+  padding: 5px 15px;  
+}
+
 .btn-red:hover, .btn-op:hover{
     background: #426180;
     color: #fff;
@@ -262,6 +266,18 @@ h1 {
 
 .table th:last-child {
     text-align: right;
+}
+
+.btn-remove {
+    background: url("../img/remove.jpg") top center no-repeat;
+    width: 17px;
+    height: 17px;
+}
+
+.btn-edit {
+    background: url("../img/edit.jpg") top center no-repeat;
+    width: 17px;
+    height: 17px;
 }
 
 @media(min-width:768px) {

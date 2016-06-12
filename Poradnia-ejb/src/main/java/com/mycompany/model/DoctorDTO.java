@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -30,8 +31,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "check doctor",
             query = "select d from DoctorDTO d where d.userName = ?1 and d.password = ?2")
-
-    
 })
 public class DoctorDTO implements Serializable
 {
@@ -48,7 +47,7 @@ public class DoctorDTO implements Serializable
     @Column(name = "LASTNAME")
     private String lastName;
     
-    @Size(max =40)
+    @Size(max =75)
     @Column(name = "ADDRESS")
     private String address;
     
@@ -76,8 +75,6 @@ public class DoctorDTO implements Serializable
 
     @OneToMany(mappedBy = "doctor", cascade={CascadeType.ALL})
     private List<VisitDTO> visits = new LinkedList<>();
-    
-    
 
     public DoctorDTO()
     {

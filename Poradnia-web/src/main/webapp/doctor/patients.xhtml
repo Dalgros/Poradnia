@@ -64,37 +64,44 @@
                             <h:form id="form">
                                 <h:dataTable id="prod" value="#{patient.getPatientsByDoctors(login.user)}" var="item" styleClass="table">
                                     <h:column>
-                                        <f:facet name="header">Imię</f:facet>  
-                                        <h:outputText value="#{item.firstName}" />
+                                        <f:facet name="header">Imię</f:facet> 
+                                        <h:inputText value="#{patient.editable.firstName}" rendered="#{patient.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.firstName}" rendered="#{not patient.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Nazwisko</f:facet>  
-                                        <h:outputText value="#{item.lastName}" />
+                                        <h:inputText value="#{patient.editable.lastName}" rendered="#{patient.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.lastName}" rendered="#{not patient.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Adres</f:facet>  
-                                        <h:outputText value="#{item.address}" />
+                                        <f:facet name="header">Adres</f:facet> 
+                                        <h:inputText value="#{patient.editable.address}" rendered="#{patient.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.address}" rendered="#{not patient.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Numer telefonu</f:facet>  
-                                        <h:outputText value="#{item.phoneNumber}" />
+                                        <f:facet name="header">Numer telefonu</f:facet> 
+                                        <h:inputText value="#{patient.editable.phoneNumber}" rendered="#{patient.isEditable(item)}" class="input-sm" />
+                                        <h:outputText value="#{item.phoneNumber}" rendered="#{not patient.isEditable(item)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Liczba wizyt</f:facet>  
+                                        <f:facet name="header">Wizyty</f:facet>  
                                         <h:outputText value="#{fn:length(item.visits)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Liczba lekarzy</f:facet>  
+                                        <f:facet name="header">Lekarze</f:facet>  
                                         <h:outputText value="#{fn:length(item.doctors)}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header">Operacje</f:facet>
-                                        <h:commandButton action="#{patient.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                        <f:facet name="header">Operacje</f:facet>  
+                                        <h:commandButton action="#{patient.delete(item.id)}" class="btn btn-remove pull-right" rendered="#{not patient.isEditable(item)}">
                                             <f:ajax render=":form" />
                                         </h:commandButton>
-                                        <h:button outcome="addVisit.xhtml" value="Wizyta" class="btn btn-op pull-right">
-                                            <f:param name="id" value="#{item.id}" />.
-                                        </h:button>
+                                        <h:commandButton action="#{patient.editAction(item)}" class="btn btn-edit pull-right" rendered="#{not patient.isEditable(item)}">   
+                                            <f:ajax render=":form" />
+                                        </h:commandButton>
+                                        <h:commandButton value="Aktualizuj wpis" action="#{patient.saveChanges}" class="btn btn-red btn-accept" rendered="#{patient.isEditable(item)}">
+                                            <f:ajax execute=":form" render=":form" />
+                                        </h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

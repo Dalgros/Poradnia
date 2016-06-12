@@ -42,7 +42,7 @@ public class PlaceDTO implements Serializable
     @Column(name = "BUILDINGNUMBER")
     private Integer buildingNumber;
     
-    @Size(max = 40)
+    @Size(max = 75)
     @Column(name = "DESCRIPTION")
     private String description;
     

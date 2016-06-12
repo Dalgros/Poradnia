@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -22,7 +23,7 @@ import javax.inject.Named;
  * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("doctor")
-@RequestScoped
+@SessionScoped
 public class DoctorBean implements Serializable {
 
     @EJB
@@ -39,6 +40,8 @@ public class DoctorBean implements Serializable {
     private String password;
     private String password2;
     private String specialization;
+    
+    private DoctorDTO editable;
 
     public String create(String fName, String lName) {
         DoctorDTO doctor = new DoctorDTO();
@@ -167,8 +170,29 @@ public class DoctorBean implements Serializable {
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+
+    public DoctorDTO getEditable() {
+        return editable;
+    }
+
+    public void setEditable(DoctorDTO editable) {
+        this.editable = editable;
+    }
     
+    public String editAction(DoctorDTO doctor) {
+        editable = doctor;
+        return null;
+    }
     
+    public boolean isEditable(DoctorDTO doctor) {
+        return doctor.equals(editable);
+    }
+    
+    public String saveChanges() {
+        doctorDTOFacade.edit(editable);
+        editable = null; 
+        return null;
+    }
 
     public String submit() {
         if (!password.equals(password2)) {

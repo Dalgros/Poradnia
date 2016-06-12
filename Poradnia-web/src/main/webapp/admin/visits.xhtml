@@ -70,32 +70,50 @@
                             <h:dataTable id="prod" value="#{visit.visits}" var="item" styleClass="table">
                                 <h:column>
                                     <f:facet name="header">Pacjent</f:facet>  
-                                    <h:outputText value="#{item.patient.firstName} #{item.patient.lastName}" />
+                                    <h:selectOneMenu value="#{visit.selectedPatient}" rendered="#{visit.isEditable(item)}" class="input-sm">
+                                        <f:selectItems value="#{patient.stringPatients}" />
+                                    </h:selectOneMenu>
+                                    <h:outputText value="#{item.patient.firstName} #{item.patient.lastName}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Lekarz</f:facet>  
-                                    <h:outputText value="#{item.doctor.firstName} #{item.doctor.lastName}" />
+                                    <h:selectOneMenu value="#{visit.selectedDoctor}" rendered="#{visit.isEditable(item)}" class="input-sm">
+                                        <f:selectItems value="#{doctor.stringDoctors}" />
+                                    </h:selectOneMenu>
+                                    <h:outputText value="#{item.doctor.firstName} #{item.doctor.lastName}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
-                                <h:column>
-                                    <f:facet name="header">Adres</f:facet>  
-                                    <h:outputText value="#{item.place.city} #{item.place.street} #{item.place.buildingNumber}" />
+                                <h:column> 
+                                    <f:facet name="header">Miejsce</f:facet>  
+                                    <h:selectOneMenu value="#{visit.selectedPlace}" rendered="#{visit.isEditable(item)}" class="input-sm">
+                                            <f:selectItems value="#{place.stringTerms}" />
+                                        </h:selectOneMenu>
+                                    <h:outputText value="#{item.place.city} #{item.place.street} #{item.place.buildingNumber}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Numer pokoju</f:facet>  
-                                    <h:outputText value="#{item.place.roomNumber}" />
+                                    <h:outputText value="#{item.place.roomNumber}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Godzina</f:facet>  
-                                    <h:outputText value="#{item.term.time}" />
+                                    <f:facet name="header">Godzina</f:facet> 
+                                    <h:selectOneMenu value="#{visit.selectedTerm}" rendered="#{visit.isEditable(item)}" class="input-sm">
+                                        <f:selectItems value="#{term.getStringTerms()}" />
+                                    </h:selectOneMenu>
+                                    <h:outputText value="#{item.term.time}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Data</f:facet>  
-                                    <h:outputText value="#{item.term.date}" />
+                                    <h:outputText value="#{item.term.date}" rendered="#{not visit.isEditable(item)}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Operacje</f:facet>
-                                    <h:commandButton action="#{visit.delete(item.id)}" value="Usuń" class="btn btn-op pull-right">
+                                    <f:facet name="header">Operacje</f:facet>  
+                                    <h:commandButton action="#{visit.delete(item.id)}" class="btn btn-remove pull-right" rendered="#{not visit.isEditable(item)}">
                                         <f:ajax render=":form" />
+                                    </h:commandButton>
+                                    <h:commandButton action="#{visit.editAction(item)}" class="btn btn-edit pull-right" rendered="#{not visit.isEditable(item)}">   
+                                        <f:ajax render=":form" />
+                                    </h:commandButton>
+                                    <h:commandButton id="a" value="Aktualizuj wpis" action="#{visit.saveChanges()}" class="btn btn-red btn-accept" rendered="#{visit.isEditable(item)}">
+                                        <f:ajax execute=":form" render=":form" />
                                     </h:commandButton>
                                 </h:column>
                             </h:dataTable>

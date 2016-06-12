@@ -6,6 +6,7 @@
 package com.mycompany.cdi;
 
 import com.mycompany.interfaces.TermDTOFacadeLocal;
+import com.mycompany.model.DoctorDTO;
 import com.mycompany.model.TermDTO;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -26,18 +28,20 @@ import javax.inject.Named;
  * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("term")
-@RequestScoped
+@SessionScoped
 public class TermBean implements Serializable {
 
     @EJB
     private TermDTOFacadeLocal termDTOFacade;
-    
+
     private static Logger log = Logger.getLogger(PlaceBean.class.getName());
 
     private String date;
     private String time;
 
     private String message;
+
+    private TermDTO editable;
 
     public List<TermDTO> getTerms() {
         return termDTOFacade.findAll();
@@ -46,10 +50,10 @@ public class TermBean implements Serializable {
     public TermDTO getTerm(Integer id) {
         return termDTOFacade.find(id);
     }
-    
+
     public List<String> getStringTerms() {
         List<String> result = new LinkedList<String>();
-        for(TermDTO term : getTerms()) {
+        for (TermDTO term : getTerms()) {
             result.add(term.getId() + " | Godzina: " + term.getTime() + ", data: " + term.getDate().getDate() + "." + term.getDate().getMonth() + "." + (term.getDate().getYear() + 1900));
         }
         return result;
@@ -85,6 +89,35 @@ public class TermBean implements Serializable {
         this.message = message;
     }
 
+    public TermDTO getEditable() {
+        return editable;
+    }
+
+    public void setEditable(TermDTO editable) {
+        this.editable = editable;
+    }
+
+    public String editAction(TermDTO term) {
+        editable = term;
+        return null;
+    }
+
+    public boolean isEditable(TermDTO term) {
+        return term.equals(editable);
+    }
+
+    public String saveChanges() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date parsed = format.parse(date);
+        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+
+        editable.setDate(sql);
+        editable.setTime(time);
+        termDTOFacade.edit(editable);
+        editable = null;
+        return null;
+    }
+
     public String submit() {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -95,7 +128,7 @@ public class TermBean implements Serializable {
             term.setDate(sql);
             term.setTime(time);
             termDTOFacade.create(term);
-            
+
             log.info("Dodano termin " + term.getTime() + " " + term.getDate());
 
             return "terms.xhtml?faces-redirect=true";

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -21,12 +22,12 @@ import javax.inject.Named;
  * @author Karol
  */
 @Named("patient")
-@RequestScoped
+@SessionScoped
 public class PatientBean implements Serializable {
 
     @EJB
     private PatientDTOFacadeLocal patientDTOFacade;
-    
+
     private static Logger log = Logger.getLogger(PatientBean.class.getName());
 
     private String firstName;
@@ -37,6 +38,8 @@ public class PatientBean implements Serializable {
     private String username;
     private String password;
     private String password2;
+
+    private PatientDTO editable;
 
     public List<PatientDTO> getPatients() {
         return patientDTOFacade.findAll();
@@ -60,7 +63,7 @@ public class PatientBean implements Serializable {
         return patientDTOFacade;
     }
 
-   ; public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
+    ; public void setPatientDTOFacade(PatientDTOFacadeLocal patientDTOFacade) {
         this.patientDTOFacade = patientDTOFacade;
     }
 
@@ -148,7 +151,30 @@ public class PatientBean implements Serializable {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
+
+    public PatientDTO getEditable() {
+        return editable;
+    }
+
+    public void setEditable(PatientDTO editable) {
+        this.editable = editable;
+    }
     
+    public String editAction(PatientDTO doctor) {
+        editable = doctor;
+        return null;
+    }
+    
+    public boolean isEditable(PatientDTO doctor) {
+        return doctor.equals(editable);
+    }
+    
+    public String saveChanges() {
+        patientDTOFacade.edit(editable);
+        editable = null; 
+        return null;
+    }
+
     public String submit() {
         return submit(null);
     }
@@ -166,13 +192,13 @@ public class PatientBean implements Serializable {
         patient.setPassword(password);
         patient.setPhoneNumber(Integer.parseInt(phoneNumber));
         patient.setUserName(username);
-        
+
         List<DoctorDTO> docs = new LinkedList<DoctorDTO>();
         docs.add(doctor);
         patient.setDoctors(docs);
 
         patientDTOFacade.create(patient);
-        
+
         log.info("Dodano pacjenta " + patient.getFirstName() + " " + patient.getLastName());
 
         return "patients.xhtml?faces-redirect=true";

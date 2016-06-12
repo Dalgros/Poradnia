@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -29,7 +30,7 @@ import javax.inject.Named;
  * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("visit")
-@RequestScoped
+@SessionScoped
 public class VisitBean implements Serializable {
 
     @EJB
@@ -49,15 +50,15 @@ public class VisitBean implements Serializable {
 
     @EJB
     private PlaceDTOFacadeLocal placeDTOFacade;
-    
 
     private static Logger log = Logger.getLogger(PlaceBean.class.getName());
-    
 
     private String selectedTerm;
     private String selectedDoctor;
     private String selectedPatient;
     private String selectedPlace;
+
+    private VisitDTO editable;
 
     public List<VisitDTO> getVisits() {
         return visitDTOFacade.findAll();
@@ -117,13 +118,46 @@ public class VisitBean implements Serializable {
     }
 
     public String getSelectedPlace() {
-         return selectedPlace;
-     }
- 
-     public void setSelectedPlace(String selectedPlace) {
-         this.selectedPlace = selectedPlace;
-     }
- 
+        return selectedPlace;
+    }
+
+    public void setSelectedPlace(String selectedPlace) {
+        this.selectedPlace = selectedPlace;
+    }
+
+    public VisitDTO getEditable() {
+        return editable;
+    }
+
+    public void setEditable(VisitDTO editable) {
+        this.editable = editable;
+    }
+
+    public String editAction(VisitDTO visit) {
+        this.editable = visitDTOFacade.find(visit.getId());
+        return null;
+    }
+
+    public boolean isEditable(VisitDTO visit) {
+        if (editable != null && visit != null) {
+            return visit.getId().equals(editable.getId());
+        }
+        return false;
+    }
+
+    public String saveChanges() {
+        System.out.println("sfdsdfsdfsd");
+        editable.setDoctor((DoctorDTO) doctorDTOFacade.find(Integer.parseInt(selectedDoctor.substring(0, selectedDoctor.indexOf(" | ")))));
+        editable.setPatient((PatientDTO) patientDTOFacade.find(Integer.parseInt(selectedPatient.substring(0, selectedPatient.indexOf(" | ")))));
+
+        editable.setPlace((PlaceDTO) placeDTOFacade.find(Integer.parseInt(selectedPlace.substring(0, selectedPlace.indexOf(" | ")))));
+        editable.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
+
+        visitDTOFacade.edit(editable);
+        editable = null;
+        return null;
+    }
+
     public String submit(Integer id) {
         VisitDTO visit = new VisitDTO();
 
@@ -139,27 +173,25 @@ public class VisitBean implements Serializable {
         } else {
             visit.setPatient((PatientDTO) patientDTOFacade.find(Integer.parseInt(selectedPatient.substring(0, selectedPatient.indexOf(" | ")))));
         }
-        
+
         visit.setPlace((PlaceDTO) placeDTOFacade.find(Integer.parseInt(selectedPlace.substring(0, selectedPlace.indexOf(" | ")))));
         visit.setTerm(termDTOFacade.find(Integer.parseInt(selectedTerm.substring(0, selectedTerm.indexOf(" | ")))));
 
         visitDTOFacade.create(visit);
-        
+
         log.info("Dodano nową wizytyę dla pacjenta " + visit.getPatient().getFirstName() + " " + visit.getPatient().getLastName());
-        
+
         String subject = "Przypomnienie o wizycie lekarskiej";
-        
 
-        String body = "Witaj " + visit.getPatient().getFirstName() + "!\n" +
-                "Umówiono Pana/Panią na wizytę lekarską u lekarza " + visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName() + ".\n" + 
-                "Wizyta odbedzie się w przychodni pry w mieście " + visit.getPlace().getCity() + " pod adresem " + visit.getPlace().getStreet() + " " + 
-                visit.getPlace().getBuildingNumber() + " w pokoju numer " + visit.getPlace().getRoomNumber() + ".\n" +
-                "Termin wizyty: " + visit.getTerm().getDate() + " o godzinie " + visit.getTerm().getTime() + "\n" + 
-                "Dziękujemy za korzystanie z usług naszej poradni.\n" + 
-                "Z poważaniem,\n"+
-                "Sekretariat poradni lekarskiej.";
+        String body = "Witaj " + visit.getPatient().getFirstName() + "!\n"
+                + "Umówiono Pana/Panią na wizytę lekarską u lekarza " + visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName() + ".\n"
+                + "Wizyta odbedzie się w przychodni pry w mieście " + visit.getPlace().getCity() + " pod adresem " + visit.getPlace().getStreet() + " "
+                + visit.getPlace().getBuildingNumber() + " w pokoju numer " + visit.getPlace().getRoomNumber() + ".\n"
+                + "Termin wizyty: " + visit.getTerm().getDate() + " o godzinie " + visit.getTerm().getTime() + "\n"
+                + "Dziękujemy za korzystanie z usług naszej poradni.\n"
+                + "Z poważaniem,\n"
+                + "Sekretariat poradni lekarskiej.";
 
-        
         sendMailEjb.sendMail(visit.getPatient().getEmail(), subject, body);
 
         return "visits.xhtml?faces-redirect=true";

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
- *
+ *w
  * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Entity

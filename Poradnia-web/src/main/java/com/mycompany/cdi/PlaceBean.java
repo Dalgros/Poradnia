@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -22,7 +23,7 @@ import javax.inject.Named;
  * @author Marcin Kaczorowski, Karol Nowicki
  */
 @Named("place")
-@RequestScoped
+@SessionScoped
 public class PlaceBean implements Serializable {
 
     @EJB
@@ -36,6 +37,8 @@ public class PlaceBean implements Serializable {
     private String buildingNumber;
     private String roomNumber;
     private String description;
+    
+    private PlaceDTO editable;
 
     public List<PlaceDTO> getPlaces() {
         return placeDTOFacade.findAll();
@@ -114,7 +117,29 @@ public class PlaceBean implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public PlaceDTO getEditable() {
+        return editable;
+    }
+
+    public void setEditable(PlaceDTO editable) {
+        this.editable = editable;
+    }
     
+    public String editAction(PlaceDTO place) {
+        editable = place;
+        return null;
+    }
+    
+    public boolean isEditable(PlaceDTO place) {
+        return place.equals(editable);
+    }
+    
+    public String saveChanges() {
+        placeDTOFacade.edit(editable);
+        editable = null; 
+        return null;
+    }
     
     public String submit() {
         PlaceDTO place = new PlaceDTO();
