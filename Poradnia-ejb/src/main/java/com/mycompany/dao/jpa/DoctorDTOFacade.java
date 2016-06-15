@@ -80,23 +80,4 @@ public class DoctorDTOFacade extends AbstractFacade<DoctorDTO> implements Doctor
     }
 }
 
-            /*
 
-    @Override
-    public List<DoctorDTO> findDoctors(PatientDTO patient)
-    {
-        em = getEntityManager();
-        List<DoctorDTO> result;
-
-        try
-        {
-            Query query = em.createNamedQuery("find doctors by patient");
-            query.setParameter(1, patient);
-            result = query.getResultList();
-            return result;
-        } catch (NoResultException e)
-        {
-            return null;
-        }
-    }
-             */

@@ -37,4 +37,6 @@ public interface VisitDTOFacadeLocal
             
     List<VisitDTO> findByDoctor(DoctorDTO doctor);
     
+    void flush();
+    
 }

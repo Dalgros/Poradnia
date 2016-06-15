@@ -31,4 +31,6 @@ public interface PlaceDTOFacadeLocal
 
     int count();
     
+    void flush();
+    
 }

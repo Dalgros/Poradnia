@@ -33,4 +33,6 @@ public interface AdminDTOFacadeLocal
    
     AdminDTO checkUser(String userName, String password);
     
+    void flush();
+    
 }

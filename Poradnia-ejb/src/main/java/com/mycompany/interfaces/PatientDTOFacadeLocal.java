@@ -36,4 +36,6 @@ public interface PatientDTOFacadeLocal
     
     List<PatientDTO> findPatients(DoctorDTO doctor);
     
+    void flush();
+    
 }

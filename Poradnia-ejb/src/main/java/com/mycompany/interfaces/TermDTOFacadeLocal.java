@@ -31,4 +31,6 @@ public interface TermDTOFacadeLocal
 
     int count();
     
+    void flush();
+    
 }
