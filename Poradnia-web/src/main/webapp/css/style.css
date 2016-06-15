@@ -280,12 +280,6 @@ h1 {
     height: 17px;
 }
 
-.btn-add {
-    background: url("../img/add.jpg") top center no-repeat;
-    width: 17px;
-    height: 17px;
-}
-
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
