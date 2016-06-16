@@ -59,9 +59,6 @@
                             <div class="pull-left">
                                 <h1>Lista terminów</h1>
                             </div>
-                            <div class="pull-right">
-                                <a href="addTerm.xhtml"><button class="btn btn-red">+ Dodaj termin</button></a>
-                            </div>
                             <h:form id="form">
                                 <h:dataTable id="prod" value="#{term.terms}" var="item" styleClass="table">
                                     <h:column>
@@ -77,18 +74,6 @@
                                     <h:column>
                                         <f:facet name="header">Liczba wizyt</f:facet>  
                                         <h:outputText value="#{fn:length(item.visits)}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Operacje</f:facet>  
-                                        <h:commandButton action="#{term.delete(item.id)}" class="btn btn-remove pull-right" rendered="#{not term.isEditable(item)}">
-                                            <f:ajax render=":form" />
-                                        </h:commandButton>
-                                        <h:commandButton action="#{term.editAction(item)}" class="btn btn-edit pull-right" rendered="#{not term.isEditable(item)}">   
-                                            <f:ajax render=":form" />
-                                        </h:commandButton>
-                                        <h:commandButton value="Aktualizuj wpis" action="#{term.saveChanges}" class="btn btn-red btn-accept" rendered="#{term.isEditable(item)}">
-                                            <f:ajax execute=":form" render=":form" />
-                                        </h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

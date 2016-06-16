@@ -55,9 +55,8 @@
                     <div class="row" style="padding: 50px 0;">
                         <h1>Dzień dobry pacjencie</h1>   
                         <ul class="list-group">
-                            <li class="list-group-item">Liczba Pańskich pacjentów: <span class="badge"><h:outputText value="#{fn:length(patient.patients)}" /></span></li>
-                            <li class="list-group-item">Liczba zaplanowanych wizyt <span class="badge"><h:outputText value="#{fn:length(visit.visits)}" /></span></li>
-                            <li class="list-group-item">Liczba ustalonych terminów: <span class="badge"><h:outputText value="#{fn:length(term.terms)}" /></span></li>
+                            <li class="list-group-item">Liczba lekarzy: <span class="badge"><h:outputText value="#{fn:length(doctor.getDoctorsByPatient(login.user))}" /></span></li>
+                            <li class="list-group-item">Liczba zaplanowanych wizyt <span class="badge"><h:outputText value="#{fn:length(visit.getVisitsByPatients(login.user))}" /></span></li>
                         </ul>
                         <br />
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
